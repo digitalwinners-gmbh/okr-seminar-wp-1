@@ -1,0 +1,489 @@
+/* ============================================================
+   OKR Coach / Master / Champion Seminar – Custom Styles
+   Für WPBakery / Bridge Theme (okrexperten.de)
+   Fonts: selbst gehostet (DSGVO), siehe ./fonts/
+   ============================================================ */
+
+/* ---------- Fonts (variable, latin + latin-ext) ---------- */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/archivo-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/archivo-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/hanken-grotesk-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/hanken-grotesk-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/instrument-serif-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/instrument-serif-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/instrument-serif-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/instrument-serif-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ---------- Design Tokens ---------- */
+.okrs {
+  --ink: #1c1813;
+  --ink2: #15110c;
+  --paper: #f7f4ed;
+  --cream: #fbf9f3;
+  --card: #ffffff;
+  --line: #ece5d6;
+  --line2: #e6e0d3;
+  --gold: #a9863c;
+  --gold-bright: #d9b75c;
+  --gold-deep: #8a6c2b;
+  --body: #3a352d;
+  --muted: #6a635a;
+  --faint: #8a8275;
+  --tan: #d8cfbb;
+  font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+.okrs *, .okrs *::before, .okrs *::after { box-sizing: border-box; }
+.okrs--dark { color: #f4efe4; }
+.okrs img { max-width: 100%; }
+.okrs ::selection { background: #a9863c; color: #fff; }
+
+/* Anker unter Sticky-Header */
+.okrs-anchor, #termine, #kontakt, #faq, #trainer, #vorteile { scroll-margin-top: 110px; }
+
+/* Wrapper */
+.okrs-wrap { max-width: 1220px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+.okrs-pt { padding-top: 60px; }
+.okrs-pt--sm { padding-top: 32px; }
+.okrs-pb { padding-bottom: 64px; }
+.okrs-wrap--narrow { max-width: 1000px; }
+.okrs-wrap--faq { max-width: 860px; }
+.okrs-wrap--about { max-width: 1160px; }
+.okrs-wrap--cert { max-width: 1100px; }
+
+/* WPBakery Reset innerhalb unserer Rows */
+.okrs-row .vc_column-inner { padding-left: 0 !important; padding-right: 0 !important; }
+.okrs-row p:last-child { margin-bottom: 0; }
+
+/* Typo-Basics */
+.okrs h1, .okrs h2, .okrs h3 { font-family: 'Archivo', sans-serif; color: inherit; }
+.okrs-kicker {
+  font-size: 12.5px; font-weight: 800; letter-spacing: .16em;
+  color: var(--gold); text-transform: uppercase;
+  font-family: 'Hanken Grotesk', sans-serif;
+}
+.okrs-kicker--bright { color: var(--gold-bright); }
+.okrs-h2 {
+  font-family: 'Archivo', sans-serif; font-weight: 800;
+  font-size: clamp(24px, 2.8vw, 34px); letter-spacing: -.02em;
+  line-height: 1.1; margin: 12px 0 0;
+}
+.okrs-h2--xl { font-size: clamp(28px, 3.6vw, 46px); line-height: 1.06; }
+.okrs-h2--lg { font-size: clamp(28px, 3.4vw, 42px); line-height: 1.08; }
+
+/* Buttons */
+.okrs-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  text-decoration: none !important; font-family: 'Archivo', sans-serif;
+  font-weight: 700; font-size: 15.5px; padding: 15px 28px; border-radius: 999px;
+  cursor: pointer; border: none; line-height: 1.2; transition: transform .15s, box-shadow .15s, background .15s;
+}
+.okrs-btn--gold { background: var(--gold); color: #fff !important; box-shadow: 0 12px 30px rgba(169,134,60,.4); }
+.okrs-btn--gold:hover { background: #97772f; color: #fff !important; transform: translateY(-1px); }
+.okrs-btn--ghost-light { background: transparent; border: 1px solid rgba(244,239,228,.32); color: #f4efe4 !important; }
+.okrs-btn--ghost-light:hover { background: rgba(244,239,228,.08); color: #fff !important; }
+.okrs-btn--dark { background: var(--ink); color: #fff !important; font-size: 14.5px; padding: 13px 24px; }
+.okrs-btn--ghost-dark { background: transparent; border: 1px solid var(--tan); color: var(--ink) !important; font-size: 14.5px; padding: 13px 24px; }
+.okrs-btn--ghost-dark:hover { background: var(--ink); color: #fff !important; }
+
+/* ============ HERO + BODY GRID ============ */
+.okrs-body-grid { display: grid; grid-template-columns: minmax(0,1fr) 366px; gap: 50px; align-items: start; }
+.okrs-side { position: sticky; top: 100px; }
+
+.okrs-hero-card { overflow: hidden; border-radius: 24px; box-shadow: 0 24px 60px rgba(28,24,19,.16); }
+.okrs-hero-media { position: relative; }
+.okrs-hero-media img { width: 100%; height: 186px; object-fit: cover; display: block; }
+.okrs-hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(28,24,19,0) 55%, rgba(28,24,19,.72) 100%); }
+.okrs-hero-panel { position: relative; overflow: hidden; background: var(--ink); color: #f4efe4; padding: 32px 40px 36px; }
+.okrs-hero-panel::before { content: ""; position: absolute; inset: 0; background: radial-gradient(900px 440px at 90% -20%, rgba(169,134,60,.34), transparent 60%); }
+.okrs-hero-panel > div { position: relative; }
+.okrs-hero-pill {
+  display: inline-flex; align-items: center; gap: 9px;
+  border: 1px solid rgba(217,183,92,.4); color: var(--gold-bright);
+  font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  padding: 7px 14px; border-radius: 999px;
+}
+.okrs-hero-panel h1 {
+  font-weight: 800; font-size: clamp(30px, 3.7vw, 46px); line-height: 1.05;
+  letter-spacing: -.02em; margin: 18px 0 0; color: #f4efe4;
+}
+.okrs-hero-panel h1 em { font-style: normal; color: var(--gold-bright); }
+.okrs-hero-sub {
+  font-family: 'Instrument Serif', serif; font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.35; color: var(--tan); margin: 16px 0 0;
+}
+.okrs-hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.okrs-hero-trust { display: flex; align-items: center; gap: 16px; margin-top: 26px; flex-wrap: wrap; }
+.okrs-hero-trust .okrs-trust-item { display: flex; align-items: center; gap: 8px; }
+.okrs-hero-trust .okrs-trust-item img { height: 20px; }
+.okrs-hero-trust .okrs-trust-item img.okrs-stars { height: 14px; }
+.okrs-hero-trust .okrs-trust-item strong { font-family: 'Archivo', sans-serif; font-size: 14px; }
+.okrs-trust-sep { width: 1px; height: 22px; background: rgba(244,239,228,.18); }
+.okrs-trust-award {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid rgba(217,183,92,.42); background: rgba(217,183,92,.12);
+  color: #e7cd8c; font-size: 12px; font-weight: 700; padding: 6px 13px; border-radius: 999px;
+}
+
+/* Stats row */
+.okrs-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 18px; }
+.okrs-stat { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px 10px; text-align: center; }
+.okrs-stat b { display: block; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: clamp(21px, 2.3vw, 29px); color: var(--gold); line-height: 1; }
+.okrs-stat span { display: block; font-size: 12px; color: #4a443b; font-weight: 600; margin-top: 5px; }
+
+/* Section nav */
+.okrs-secnav { display: flex; gap: 28px; margin-top: 20px; padding: 0 4px; border-bottom: 1px solid #ded5c2; overflow-x: auto; }
+.okrs-secnav a {
+  text-decoration: none !important; font-family: 'Archivo', sans-serif; font-weight: 700;
+  font-size: 14px; color: var(--faint) !important; padding: 12px 2px;
+  border-bottom: 2.5px solid transparent; margin-bottom: -1px; white-space: nowrap;
+}
+.okrs-secnav a:first-child, .okrs-secnav a:hover { color: var(--ink) !important; }
+.okrs-secnav a:first-child { border-bottom-color: var(--gold); }
+
+/* Content sections in left column */
+.okrs-sec { margin-top: 54px; }
+.okrs-sec p { font-size: 16.5px; line-height: 1.65; color: var(--body); margin: 0 0 14px; }
+.okrs-sec h2 { font-weight: 800; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.02em; margin: 12px 0 18px; line-height: 1.1; }
+
+/* Outcomes */
+.okrs-oc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 28px; }
+.okrs-oc { display: flex; gap: 11px; align-items: flex-start; }
+.okrs-oc svg { flex-shrink: 0; margin-top: 1px; }
+.okrs-oc p { margin: 0; font-size: 14.5px; line-height: 1.45; color: var(--body); }
+
+/* Agenda */
+.okrs-agenda-tabs { display: flex; gap: 9px; flex-wrap: wrap; }
+.okrs-agenda-tab {
+  background: #fff; color: #4a443b; border: 1px solid var(--line2);
+  font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 14.5px;
+  padding: 10px 20px; border-radius: 999px; cursor: pointer;
+}
+.okrs-agenda-tab.is-active { background: var(--ink); color: #fff; border-color: var(--ink); }
+.okrs-agenda-panel { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 26px; margin-top: 18px; }
+.okrs-agenda-panel h3 { font-weight: 700; font-size: clamp(18px, 2vw, 22px); margin: 0 0 18px; letter-spacing: -.01em; }
+.okrs-agenda-day { display: none; }
+.okrs-agenda-day.is-active { display: block; }
+.okrs-agenda-items { display: grid; gap: 11px; }
+.okrs-agenda-item { display: flex; gap: 11px; align-items: flex-start; }
+.okrs-agenda-item > span:last-child { font-size: 14.5px; line-height: 1.45; color: var(--body); }
+.okrs-dot { flex-shrink: 0; color: var(--gold); font-size: 18px; line-height: 1; margin-top: 2px; }
+.okrs-tag-uebung {
+  flex-shrink: 0; font-size: 10.5px; font-weight: 800; letter-spacing: .04em;
+  text-transform: uppercase; background: var(--gold); color: var(--ink);
+  padding: 3px 8px; border-radius: 6px; margin-top: 1px;
+}
+.okrs-pdf-link { display: inline-block; margin-top: 16px; text-decoration: none !important; color: var(--gold) !important; font-weight: 700; font-size: 14.5px; }
+.okrs-pdf-link:hover { color: var(--gold-deep) !important; }
+
+/* ============ SIDEBAR ============ */
+.okrs-side-card { background: #fff; border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 18px 50px rgba(28,24,19,.10); overflow: hidden; }
+.okrs-side-tabs { display: flex; background: #efe9dc; }
+.okrs-side-tab {
+  flex: 1; background: transparent; color: var(--ink); border: none;
+  font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 13.5px;
+  padding: 14px 6px; cursor: pointer; opacity: .82;
+}
+.okrs-side-tab.is-active { background: var(--ink); color: #fff; opacity: 1; }
+.okrs-side-context { background: #fff; padding: 14px 22px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 11px; font-size: 13.5px; font-weight: 700; }
+.okrs-side-body { padding: 20px 22px; }
+.okrs-side-pane { display: none; }
+.okrs-side-pane.is-active { display: block; }
+.okrs-side-price-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.okrs-side-old { font-size: 12.5px; color: #b3aa98; text-decoration: line-through; }
+.okrs-side-price { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 28px; line-height: 1; }
+.okrs-side-note { font-size: 11px; color: var(--faint); margin-top: 2px; }
+.okrs-side-details { font-size: 13px; font-weight: 700; color: var(--gold) !important; text-decoration: none !important; white-space: nowrap; }
+.okrs-side-sep { height: 1px; background: var(--line); margin: 18px 0; }
+.okrs-side-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
+.okrs-side-fact { display: flex; gap: 10px; align-items: center; font-size: 13.5px; color: var(--ink); font-weight: 600; }
+.okrs-side-fact svg { flex-shrink: 0; }
+.okrs-side-perks { margin: 20px 0 0; padding: 0; list-style: none; display: grid; gap: 11px; }
+.okrs-side-perks li { display: flex; gap: 11px; align-items: center; font-size: 14px; font-weight: 600; }
+.okrs-side-cta {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  text-decoration: none !important; background: var(--gold); color: #fff !important;
+  font-weight: 700; font-size: 15.5px; padding: 15px; border-radius: 12px;
+  margin-top: 22px; box-shadow: 0 10px 24px rgba(169,134,60,.3);
+}
+.okrs-side-cta:hover { background: #97772f; }
+.okrs-side-hint { margin-top: 14px; text-align: center; line-height: 1.7; font-size: 12.5px; color: var(--faint); }
+.okrs-side-pay { text-align: center; font-size: 11.5px; color: var(--faint); margin: 12px 6px 0; line-height: 1.4; }
+
+/* Awards Carousel */
+.okrs-awards { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 18px 50px rgba(28,24,19,.08); margin-top: 16px; padding: 20px 0 16px; }
+.okrs-awards-viewport { overflow: hidden; }
+.okrs-awards-track { display: flex; transition: transform .55s cubic-bezier(.4,0,.2,1); }
+.okrs-award-slide { flex: 0 0 100%; padding: 0 26px; display: flex; align-items: center; gap: 14px; min-height: 128px; }
+.okrs-award-slide img.okrs-award-img { height: 106px; width: auto; flex-shrink: 0; filter: drop-shadow(0 8px 18px rgba(28,24,19,.14)); }
+.okrs-award-kicker { font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+.okrs-award-title { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 17px; line-height: 1.15; margin-top: 6px; }
+.okrs-award-text { font-size: 12.5px; line-height: 1.45; color: var(--muted); margin: 7px 0 0; }
+.okrs-award-ratings { width: 100px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.okrs-award-ratings > div { display: flex; align-items: center; gap: 7px; }
+.okrs-award-ratings img { height: 24px; }
+.okrs-award-ratings strong { font-family: 'Archivo', sans-serif; font-size: 16px; }
+.okrs-award-books { width: 100px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.okrs-awards-btn {
+  position: absolute; top: 50%; z-index: 2; width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid var(--line); background: #fff; color: var(--ink); font-size: 16px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  line-height: 1; box-shadow: 0 4px 12px rgba(28,24,19,.14); padding: 0;
+}
+.okrs-awards-btn--prev { left: 0; transform: translate(-50%,-50%); }
+.okrs-awards-btn--next { right: 0; transform: translate(50%,-50%); }
+.okrs-awards-dots { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
+.okrs-awards-dot { width: 8px; height: 8px; border-radius: 999px; border: none; cursor: pointer; padding: 0; transition: all .3s; background: var(--tan); }
+.okrs-awards-dot.is-active { width: 22px; background: var(--gold); }
+
+/* ============ BENEFITS ============ */
+.okrs-benefits-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; }
+.okrs-bn-nav { display: flex; gap: 9px; flex-shrink: 0; }
+.okrs-bn-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--tan); background: #fff; color: var(--ink); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; padding: 0; }
+.okrs-bn-btn--next { border-color: var(--ink); background: var(--ink); color: #fff; }
+.okrs-bn-track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x proximity; padding: 24px 2px 6px; scroll-padding-left: 2px; -ms-overflow-style: none; scrollbar-width: none; }
+.okrs-bn-track::-webkit-scrollbar { display: none; }
+.okrs-bn-card { scroll-snap-align: start; flex: 0 0 288px; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 22px 20px; }
+.okrs-bn-num { width: 38px; height: 38px; border-radius: 10px; background: var(--ink); color: var(--gold-bright); font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+.okrs-bn-card h3 { font-weight: 700; font-size: 17px; margin: 14px 0 7px; letter-spacing: -.01em; }
+.okrs-bn-card p { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+
+/* ============ TRAINER (dark) ============ */
+.okrs-dark { background: var(--ink); color: #f4efe4; }
+.okrs-trainer-grid { display: grid; grid-template-columns: 320px 1fr; gap: 40px; align-items: center; margin-top: 22px; }
+.okrs-trainer-grid img { width: 100%; border-radius: 16px; display: block; }
+.okrs-quote { font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(20px, 2.2vw, 28px); line-height: 1.28; margin: 0; color: #f4efe4; }
+.okrs-trainer-name { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 19px; margin-top: 14px; }
+.okrs-trainer-bio { margin: 18px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
+.okrs-trainer-bio li { display: flex; gap: 11px; align-items: flex-start; font-size: 14px; line-height: 1.45; color: var(--tan); }
+.okrs-trainer-bio li::before { content: "✓"; color: var(--gold-bright); font-weight: 800; flex-shrink: 0; }
+.okrs-linkedin { display: inline-block; margin-top: 20px; text-decoration: none !important; border: 1px solid rgba(244,239,228,.3); color: #f4efe4 !important; font-weight: 700; font-size: 14px; padding: 10px 18px; border-radius: 999px; }
+.okrs-linkedin:hover { background: rgba(244,239,228,.1); }
+
+/* ============ ZERTIFIKAT ============ */
+.okrs-cert { display: flex; align-items: center; gap: 44px; flex-wrap: wrap; }
+.okrs-cert-badge { width: 200px; height: 200px; flex-shrink: 0; object-fit: contain; filter: drop-shadow(0 12px 26px rgba(28,24,19,.16)); }
+.okrs-cert-body { flex: 1; min-width: 280px; }
+.okrs-check-list { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.okrs-check-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 14.5px; line-height: 1.45; color: var(--body); }
+.okrs-check-list li::before {
+  content: "✓"; flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+  background: #f0e7d2; color: var(--gold-deep); display: flex; align-items: center;
+  justify-content: center; font-size: 12px; font-weight: 800;
+}
+
+/* ============ ZIELGRUPPE ============ */
+.okrs-audience { text-align: center; }
+.okrs-audience-intro { font-size: 15.5px; line-height: 1.6; color: var(--muted); margin: 8px auto 20px; max-width: 640px; }
+.okrs-chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.okrs-chip { background: #fff; border: 1px solid var(--line2); border-radius: 999px; padding: 9px 16px; font-size: 14px; font-weight: 600; color: var(--body); }
+.okrs-toggle-link { display: inline-block; margin-top: 24px; background: none; border: 1px solid var(--tan); color: var(--ink); font-family: 'Hanken Grotesk', sans-serif; font-weight: 700; font-size: 14.5px; padding: 11px 22px; border-radius: 999px; cursor: pointer; }
+.okrs-audience-detail { display: none; text-align: left; max-width: 820px; margin: 28px auto 0; }
+.okrs-audience-detail.is-open { display: block; }
+.okrs-audience-detail h3 { font-weight: 700; font-size: 19px; margin: 0 0 14px; }
+.okrs-audience-detail ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.okrs-audience-detail li { display: flex; gap: 11px; align-items: flex-start; font-size: 14.5px; line-height: 1.5; color: var(--body); }
+.okrs-audience-detail li::before { content: "▪"; color: var(--gold); flex-shrink: 0; }
+
+/* ============ TERMINE (dark) ============ */
+.okrs-termine-sub { font-size: 15.5px; color: #a89f8c; margin: 8px 0 0; }
+.okrs-special-banner {
+  background: rgba(217,183,92,.12); border: 1px solid rgba(217,183,92,.32);
+  border-radius: 12px; padding: 15px 20px; margin-top: 28px;
+  display: flex; align-items: center; gap: 13px;
+}
+.okrs-special-banner .okrs-special-chip {
+  flex-shrink: 0; width: 34px; height: 34px; border-radius: 9px; background: var(--gold-bright);
+  color: var(--ink); display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-family: 'Archivo', sans-serif; font-size: 13px; white-space: nowrap;
+}
+.okrs-special-banner p { font-size: 14px; line-height: 1.4; color: #f4efe4; margin: 0; }
+.okrs-special-banner strong { color: var(--gold-bright); }
+.okrs-reserve-banner {
+  background: rgba(217,183,92,.06); border: 1px solid rgba(217,183,92,.28);
+  border-radius: 14px; padding: 18px 22px; margin-top: 14px;
+  display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+}
+.okrs-reserve-icon { flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px; background: rgba(217,183,92,.14); display: flex; align-items: center; justify-content: center; }
+.okrs-reserve-body { flex: 1; min-width: 240px; }
+.okrs-reserve-title { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 16.5px; color: #f4efe4; letter-spacing: -.01em; }
+.okrs-reserve-text { font-size: 13.5px; line-height: 1.45; color: #a89f8c; margin-top: 3px; }
+.okrs-reserve-cta {
+  flex-shrink: 0; text-decoration: none !important; background: transparent; color: var(--gold-bright) !important;
+  border: 1px solid rgba(217,183,92,.55); font-family: 'Archivo', sans-serif; font-weight: 700;
+  font-size: 14px; padding: 11px 20px; border-radius: 999px; display: inline-flex; align-items: center; gap: 9px; white-space: nowrap;
+}
+.okrs-reserve-cta:hover { background: rgba(217,183,92,.12); }
+
+/* Heller Container um [seminar5] (innerhalb der dunklen Termine-Sektion) */
+.okrs-seminar-card {
+  background: #fbf9f3; color: #1c1813; border-radius: 16px;
+  padding: 12px 22px; margin: 14px auto 0;
+  max-width: 1172px; width: calc(100% - 48px);
+}
+.okrs-seminar-card .vc_column-inner { padding: 0 !important; }
+
+/* FAQ-Accordions auf FAQ-Breite zentrieren */
+.okrs-faq-acc { max-width: 860px; margin: 0 auto; padding: 24px 24px 0; }
+.okrs-faq-acc.okrs-faq2 { padding-top: 12px; }
+
+/* Inhouse-Strip */
+.okrs-inhouse-strip {
+  background: linear-gradient(135deg, #241f18, #15110c); color: #f4efe4;
+  border-radius: 14px; border: 1px solid rgba(217,183,92,.25); padding: 20px 24px;
+  margin-top: 14px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+}
+.okrs-inhouse-strip .okrs-inhouse-body { flex: 1; min-width: 240px; }
+.okrs-inhouse-kicker { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-bright); }
+.okrs-inhouse-title { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 18px; margin-top: 5px; }
+.okrs-inhouse-sub { font-size: 13px; color: #a89f8c; margin-top: 3px; }
+.okrs-inhouse-cta { text-decoration: none !important; background: var(--gold-bright); color: var(--ink) !important; font-weight: 700; font-size: 14.5px; padding: 13px 24px; border-radius: 10px; white-space: nowrap; }
+.okrs-inhouse-cta:hover { background: #e5c877; }
+.okrs-rabatt-note { text-align: center; font-size: 13px; color: var(--faint); margin: 24px auto 0; max-width: 680px; }
+
+/* ============ TESTIMONIALS ============ */
+.okrs-t-head { text-align: center; }
+.okrs-t-track { display: flex; gap: 18px; overflow-x: auto; padding: 36px 4px 18px; scroll-snap-type: x mandatory; }
+.okrs-t-track::-webkit-scrollbar { height: 6px; }
+.okrs-t-track::-webkit-scrollbar-thumb { background: var(--tan); border-radius: 99px; }
+.okrs-t-card { scroll-snap-align: start; flex: 0 0 360px; background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 26px; display: flex; flex-direction: column; }
+.okrs-t-card > img { height: 16px; align-self: flex-start; width: auto; }
+.okrs-t-card blockquote { font-size: 15px; line-height: 1.55; color: var(--body); margin: 16px 0 20px; padding: 0; border: none; flex: 1; background: none; quotes: none; }
+.okrs-t-person { display: flex; align-items: center; gap: 13px; border-top: 1px solid #f0ebe0; padding-top: 16px; }
+.okrs-t-person img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; background: var(--line); }
+.okrs-t-name { font-weight: 700; font-size: 14.5px; }
+.okrs-t-role { font-size: 12.5px; color: var(--faint); line-height: 1.3; }
+.okrs-referenzen { width: 100%; max-width: 1040px; display: block; margin: 30px auto 0; background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 26px; box-shadow: 0 14px 40px rgba(28,24,19,.06); }
+
+/* ============ ÜBER UNS ============ */
+.okrs-about-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 44px; align-items: center; }
+.okrs-about-copy { display: grid; gap: 15px; font-size: 15.5px; line-height: 1.65; color: var(--body); }
+.okrs-about-copy p { margin: 0; font-size: 15.5px; line-height: 1.65; }
+.okrs-about-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+.okrs-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.okrs-fact { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 24px 20px; text-align: center; }
+.okrs-fact svg { margin: 0 auto; display: block; }
+.okrs-fact b { display: block; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 26px; margin-top: 12px; line-height: 1; }
+.okrs-fact span { display: block; font-size: 13.5px; color: #5a544a; margin-top: 5px; line-height: 1.35; }
+.okrs-fact--dark { background: var(--ink); border-color: var(--ink); }
+.okrs-fact--dark b { color: var(--gold-bright); font-size: 17px; line-height: 1.1; }
+.okrs-fact--dark span { color: var(--tan); font-size: 13px; }
+
+/* ============ KONTAKT ============ */
+.okrs-kontakt-head { max-width: 640px; }
+.okrs-kontakt-head p { font-size: 16px; line-height: 1.6; color: #5a544a; margin: 10px 0 0; }
+.okrs-kf-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 0; align-items: stretch; margin-top: 36px; border-radius: 22px; overflow: hidden; box-shadow: 0 20px 54px rgba(28,24,19,.10); }
+.okrs-kf-form { background: var(--cream); padding: 38px 40px; }
+.okrs-kf-form iframe { border: none; width: 100%; }
+.okrs-person-card { position: relative; background: var(--ink); min-height: 360px; }
+.okrs-person-card > img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; position: absolute; inset: 0; }
+.okrs-person-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(28,24,19,0) 40%, rgba(28,24,19,.5) 100%); }
+.okrs-person-info { position: absolute; left: 22px; right: 22px; bottom: 22px; z-index: 2; background: #fff; border-radius: 16px; padding: 20px 22px; box-shadow: 0 16px 40px rgba(0,0,0,.28); }
+.okrs-person-name { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 19px; color: var(--ink); }
+.okrs-person-role { font-size: 13.5px; color: var(--faint); margin-top: 2px; }
+.okrs-person-links { display: grid; gap: 9px; margin-top: 16px; }
+.okrs-person-links a { display: flex; align-items: center; gap: 10px; text-decoration: none !important; color: var(--gold) !important; font-weight: 700; font-size: 14.5px; }
+.okrs-person-links a:hover { color: var(--gold-deep) !important; }
+.okrs-person-links svg { flex-shrink: 0; }
+
+/* ============ FAQ ============ */
+.okrs-faq-head { text-align: center; }
+.okrs-faq-intro { font-size: 15.5px; line-height: 1.6; color: var(--muted); margin: 14px auto 0; max-width: 560px; text-align: center; }
+.okrs-faq-more { text-align: center; margin-top: 22px; }
+.okrs-faq2 { display: none; }
+.okrs-faq2.is-open { display: block; }
+
+/* Easy Accordion Anpassung ans Design */
+.okrs-row .sp-easy-accordion .ea-card {
+  background: #fff !important; border: 1px solid #ece5d6 !important;
+  border-radius: 14px !important; overflow: hidden; margin-bottom: 12px !important; box-shadow: none !important;
+}
+.okrs-row .sp-easy-accordion .ea-card .ea-header a {
+  background: none !important; font-family: 'Hanken Grotesk', sans-serif !important;
+  font-weight: 700 !important; font-size: 16px !important; color: #1c1813 !important;
+  padding: 20px 22px !important;
+}
+.okrs-row .sp-easy-accordion .ea-card .ea-body {
+  font-size: 14.5px !important; line-height: 1.6 !important; color: #5a544a !important;
+  padding: 0 22px 22px !important; background: none !important;
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 1100px) {
+  .okrs-trainer-grid { grid-template-columns: 280px 1fr; }
+}
+@media (max-width: 980px) {
+  .okrs-body-grid { grid-template-columns: 1fr; gap: 28px; }
+  .okrs-side { position: static; order: -1; }
+  .okrs-kf-grid { grid-template-columns: 1fr; }
+  .okrs-about-grid { grid-template-columns: 1fr; gap: 30px; }
+}
+@media (max-width: 780px) {
+  .okrs-trainer-grid { grid-template-columns: 1fr; gap: 24px; }
+  .okrs-hero-panel { padding: 26px 24px 30px; }
+  .okrs-trainer-bio { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .okrs-oc-grid { grid-template-columns: 1fr; }
+  .okrs-stats { grid-template-columns: repeat(2,1fr); }
+  .okrs-t-card { flex: 0 0 300px; }
+  .okrs-kf-form { padding: 28px 22px; }
+  .okrs-facts { grid-template-columns: 1fr 1fr; gap: 10px; }
+}
