@@ -131,6 +131,68 @@
       });
     }
 
+    /* ---------- Termin-Filter (Alle / Präsenz / Live-Online / Inhouse) ----------
+       [seminar5] rendert pro Termin eine Row id="3D_n" plus eine Detail-Row
+       id="3D_REM_SCHEMA_n" (Live-Online) bzw. "3D_PRES_SCHEMA_n" (Präsenz) —
+       das Format steckt also in der ID. Zahlen in den Buttons werden zur
+       Laufzeit aus der tatsächlichen Terminliste befüllt. */
+    var filterBar = document.querySelector('.okrs-filterbar');
+    var seminarCard = document.querySelector('.okrs-seminar-card');
+    if (filterBar && seminarCard) {
+      var entries = []; // { format: 'praesenz'|'online', rows: [mainRow, schemaRow] }
+      seminarCard.querySelectorAll('[id^="3D_"]').forEach(function (el) {
+        var m = el.id.match(/^3D_(REM|PRES)_SCHEMA_(\d+)$/);
+        if (!m) return;
+        // '#3D_1' wäre ungültig (ID beginnt mit Ziffer) → Attribut-Selektor
+        var main = seminarCard.querySelector('[id="3D_' + m[2] + '"]');
+        if (!main) return;
+        entries.push({
+          format: m[1] === 'REM' ? 'online' : 'praesenz',
+          rows: [main, el]
+        });
+      });
+
+      var counts = {
+        alle: entries.length,
+        praesenz: entries.filter(function (e) { return e.format === 'praesenz'; }).length,
+        online: entries.filter(function (e) { return e.format === 'online'; }).length
+      };
+      filterBar.querySelectorAll('[data-count]').forEach(function (span) {
+        var n = counts[span.getAttribute('data-count')];
+        span.textContent = n > 0 || counts.alle > 0 ? '(' + n + ')' : '';
+      });
+
+      var label = document.querySelector('[data-filter-label]');
+      var banners = document.querySelectorAll('.okrs-special-banner, .okrs-reserve-banner');
+      var applyFilter = function (key) {
+        var inhouse = key === 'inhouse';
+        seminarCard.classList.toggle('okrs-filter-hidden', inhouse);
+        banners.forEach(function (b) { b.classList.toggle('okrs-filter-hidden', inhouse); });
+        entries.forEach(function (e) {
+          var hide = !inhouse && key !== 'alle' && e.format !== key;
+          e.rows.forEach(function (r) { r.classList.toggle('okrs-filter-hidden', hide); });
+        });
+        if (label) {
+          if (inhouse) {
+            label.textContent = 'Inhouse-Training – flexibel für dein Team, vor Ort oder online, Deutsch oder Englisch.';
+          } else {
+            var n = key === 'alle' ? counts.alle : counts[key];
+            label.textContent = entries.length ? n + (n === 1 ? ' Termin' : ' Termine') : '';
+          }
+        }
+      };
+
+      filterBar.querySelectorAll('.okrs-filter-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          filterBar.querySelectorAll('.okrs-filter-btn').forEach(function (b) {
+            b.classList.toggle('is-active', b === btn);
+          });
+          applyFilter(btn.getAttribute('data-filter'));
+        });
+      });
+      applyFilter('alle');
+    }
+
     /* ---------- Generische Toggles (Zielgruppe im Detail, weitere FAQs) ---------- */
     document.querySelectorAll('[data-okrs-toggle]').forEach(function (btn) {
       btn.addEventListener('click', function () {

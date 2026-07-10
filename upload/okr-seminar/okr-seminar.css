@@ -376,6 +376,27 @@ body .wrapper_inner { overflow: clip !important; }
 
 /* ============ TERMINE (dark) ============ */
 .okrs-termine-sub { font-size: 15.5px; color: #a89f8c; margin: 8px 0 0; }
+/* Filter-Bar (Alle / Präsenz / Live-Online / Inhouse) */
+.okrs-filterbar {
+  background: rgba(255,255,255,.05); border: 1px solid rgba(217,183,92,.18);
+  border-radius: 16px; padding: 16px 20px; margin-top: 30px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.okrs-filter-btn {
+  background: rgba(255,255,255,.04); color: #d8cfbb;
+  border: 1px solid rgba(217,183,92,.28);
+  font-family: 'Hanken Grotesk', sans-serif; font-weight: 700; font-size: 14.5px;
+  padding: 10px 20px; border-radius: 999px; cursor: pointer; line-height: 1.2;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.okrs-filter-btn:hover { border-color: rgba(217,183,92,.55); color: #f4efe4; }
+.okrs-filter-btn.is-active { background: #d9b75c; color: #1c1813; border-color: #d9b75c; }
+.okrs-filter-btn .okrs-filter-count:empty { display: none; }
+.okrs-filter-label { font-size: 14px; color: #a89f8c; font-weight: 600; margin-top: 18px; }
+.okrs-filter-label:empty { display: none; }
+/* Vom Filter ausgeblendete Elemente */
+.okrs-filter-hidden { display: none !important; }
+
 .okrs-special-banner {
   background: rgba(217,183,92,.12); border: 1px solid rgba(217,183,92,.32);
   border-radius: 12px; padding: 15px 20px; margin-top: 28px;

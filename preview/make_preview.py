@@ -24,10 +24,26 @@ def wrap_row(content: str, bg: str, el_id: str = "") -> str:
     return f'<div class="okrs-row" style="background:{bg}"{idattr}>{content}</div>'
 
 
-SEMINAR5_STUB = """
+def stub_row(n: int, fmt: str, city: str) -> str:
+    """Bildet die echte seminar5-Struktur nach: Haupt-Row 3D_n + Schema-Row."""
+    schema = "REM" if fmt == "online" else "PRES"
+    return f"""
+  <div class="vc_row wpb_row section termine" id="3D_{n}" style="border-bottom:1px solid #ece5d6;padding:14px 0">
+    <strong>{city}</strong> – OKR Coach/Master Seminar ({'Live-Online' if fmt == 'online' else 'Präsenz'})
+  </div>
+  <div class="vc_row wpb_row section" id="3D_{schema}_SCHEMA_{n}" style="padding:6px 0;color:#8a8275;font-size:13px">
+    Detail-Row zu Termin {n} (3D_{schema}_SCHEMA_{n})
+  </div>"""
+
+
+SEMINAR5_STUB = f"""
 <div class="okrs"><div class="okrs-seminar-card" style="padding:26px 22px">
-  <p style="margin:0;font-weight:700">[seminar5 type="3-D-OKR" display="TYPE-HTML-SCHEMA"]</p>
-  <p style="margin:8px 0 0;color:#6a635a">→ Hier rendert WordPress die dynamische Terminliste (Platzhalter in der Vorschau).</p>
+  <p style="margin:0 0 8px;font-weight:700">[seminar5 type="3-D-OKR" display="TYPE-HTML-SCHEMA"] – Stub</p>
+  {stub_row(1, 'online', 'Live-Online 14.09.')}
+  {stub_row(2, 'praesenz', 'Frankfurt 30.09.')}
+  {stub_row(3, 'online', 'Live-Online 07.10.')}
+  {stub_row(4, 'praesenz', 'Berlin 13.10.')}
+  {stub_row(5, 'praesenz', 'Zürich 29.10.')}
 </div></div>
 """
 
