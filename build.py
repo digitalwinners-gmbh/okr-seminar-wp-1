@@ -22,7 +22,7 @@ SECTIONS = ROOT / "src" / "sections"
 ASSET_BASE = "https://okrexperten.de/wp-content/uploads/okr-seminar"
 
 # Bei Änderungen an CSS/JS hochzählen — umgeht Cloudflare-/Browser-Cache
-ASSET_VER = "2"
+ASSET_VER = "3"
 
 
 def raw_html(name: str) -> str:
@@ -61,6 +61,7 @@ parts = [
 
     # 1) Breadcrumb + Hero/Body-Grid (Überblick, Outcomes, Agenda, Sidebar)
     row(
+        '[vc_empty_space height="32px"]'
         '[vc_empty_space height="24px"]'
         '[vc_column_text el_class="yoast_bremadcrumb okrs-wrap"][wpseo_breadcrumb][/vc_column_text]'
         + raw_html("01-hero.html"),

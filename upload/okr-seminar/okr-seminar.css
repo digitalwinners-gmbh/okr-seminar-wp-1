@@ -112,9 +112,22 @@
 .okrs-row .vc_column-inner { padding-left: 0 !important; padding-right: 0 !important; }
 .okrs-row p:last-child { margin-bottom: 0; }
 
-/* Sticky-Sidebar: overflow auf Bridge-/WPBakery-Wrappern bricht position:sticky.
-   Alle Zwischencontainer der Hero-Row auf overflow:visible zwingen. */
+/* Sticky-Sidebar: JEDER Vorfahre mit overflow:hidden deaktiviert position:sticky.
+   Bridge setzt overflow u.a. auf .full_width/.content — daher auf Seitenebene
+   freischalten (dieses CSS lädt nur auf dieser Seite).
+   html/body: 'clip' statt 'hidden' — schneidet weiterhin ab, erzeugt aber
+   keinen Scroll-Container und lässt sticky intakt. */
+html, body { overflow-x: clip !important; }
+.full_width,
+.full_width_inner,
+.content,
+.content_inner,
+.container,
+.container_inner,
+.wpb-content-wrapper,
+.okrs-row,
 .okrs-row.wpb_row,
+.okrs-row section.wpb_row,
 .okrs-row .wpb_column,
 .okrs-row .vc_column-inner,
 .okrs-row .wpb_wrapper,
