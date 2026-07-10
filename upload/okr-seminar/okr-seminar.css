@@ -118,6 +118,10 @@
    html/body: 'clip' statt 'hidden' — schneidet weiterhin ab, erzeugt aber
    keinen Scroll-Container und lässt sticky intakt. */
 html, body { overflow-x: clip !important; }
+/* Bridge .wrapper hat overflow:hidden (Off-Canvas-Menü) → clip statt hidden:
+   clippt weiterhin, erzeugt aber keinen Scroll-Container, sticky bleibt intakt */
+body .wrapper,
+body .wrapper_inner { overflow: clip !important; }
 .full_width,
 .full_width_inner,
 .content,
