@@ -7,6 +7,7 @@ Dateien in upload/okr-seminar/.
 
 Aufruf: python3 preview/make_preview.py
 """
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
@@ -67,18 +68,19 @@ body = body.replace(
     '<div style="border:2px dashed #d8cfbb;border-radius:14px;min-height:420px;display:flex;align-items:center;justify-content:center;color:#8a8275;font-weight:600">Jotform-Embed (Platzhalter)</div><!--',
 )
 
+ts = int(time.time())
 html = f"""<!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vorschau – OKR Coach/Master Seminar (WPBakery-Umsetzung)</title>
-<link rel="stylesheet" href="../upload/okr-seminar/okr-seminar.css">
+<link rel="stylesheet" href="../upload/okr-seminar/okr-seminar.css?t={ts}">
 <style>body{{margin:0;background:#f7f4ed}}</style>
 </head>
 <body>
 {body}
-<script src="../upload/okr-seminar/okr-seminar.js"></script>
+<script src="../upload/okr-seminar/okr-seminar.js?t={ts}"></script>
 </body>
 </html>"""
 

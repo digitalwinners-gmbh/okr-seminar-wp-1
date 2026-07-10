@@ -65,16 +65,48 @@
       start();
     }
 
-    /* ---------- Benefits-Slider (horizontaler Scroll) ---------- */
-    var bnTrack = document.getElementById('okrs-bn-track');
-    var bnScroll = function (dir) {
-      if (!bnTrack) return;
-      bnTrack.scrollBy({ left: dir * 304, behavior: 'smooth' });
+    /* ---------- Horizontale Slider (Benefits + Bewertungen) ----------
+       scrollBy({behavior:'smooth'}) wird von scroll-snap teils ignoriert,
+       daher eigene rAF-Animation. */
+    var animateScroll = function (el, delta) {
+      var start = el.scrollLeft;
+      var target = Math.max(0, Math.min(el.scrollWidth - el.clientWidth, start + delta));
+      // scroll-snap schnappt Zwischenpositionen sofort zurück → währenddessen aus
+      el.style.scrollSnapType = 'none';
+      var done = false;
+      var finish = function () {
+        if (done) return;
+        done = true;
+        el.scrollLeft = target;
+        el.style.scrollSnapType = '';
+      };
+      var t0 = performance.now();
+      var step = function (now) {
+        if (done) return;
+        var p = Math.min(1, (now - t0) / 320);
+        var e = 1 - Math.pow(1 - p, 3);
+        el.scrollLeft = start + (target - start) * e;
+        if (p < 1) { requestAnimationFrame(step); }
+        else { finish(); }
+      };
+      requestAnimationFrame(step);
+      // Fallback: falls rAF gedrosselt ist (Hintergrund-Tab), direkt springen
+      setTimeout(finish, 400);
     };
-    var bnPrev = document.querySelector('.okrs-bn-btn--prev');
-    var bnNext = document.querySelector('.okrs-bn-btn--next');
-    if (bnPrev) bnPrev.addEventListener('click', function () { bnScroll(-1); });
-    if (bnNext) bnNext.addEventListener('click', function () { bnScroll(1); });
+    var bindSlider = function (trackId, prevSel, nextSel, cardSel, gap) {
+      var track = document.getElementById(trackId);
+      if (!track) return;
+      var stepSize = function () {
+        var card = track.querySelector(cardSel);
+        return card ? card.getBoundingClientRect().width + gap : 320;
+      };
+      var prev = document.querySelector(prevSel);
+      var next = document.querySelector(nextSel);
+      if (prev) prev.addEventListener('click', function () { animateScroll(track, -stepSize()); });
+      if (next) next.addEventListener('click', function () { animateScroll(track, stepSize()); });
+    };
+    bindSlider('okrs-bn-track', '.okrs-bn-btn--prev', '.okrs-bn-btn--next', '.okrs-bn-card', 16);
+    bindSlider('okrs-t-track', '.okrs-t-btn--prev', '.okrs-t-btn--next', '.okrs-t-card', 18);
 
     /* ---------- Teilen-Button ---------- */
     var shareBtn = document.getElementById('okrs-share');
