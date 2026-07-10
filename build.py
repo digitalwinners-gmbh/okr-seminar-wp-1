@@ -21,6 +21,9 @@ SECTIONS = ROOT / "src" / "sections"
 # Basis-URL, unter der der Ordner upload/okr-seminar/ auf dem Server liegt
 ASSET_BASE = "https://okrexperten.de/wp-content/uploads/okr-seminar"
 
+# Bei Änderungen an CSS/JS hochzählen — umgeht Cloudflare-/Browser-Cache
+ASSET_VER = "1"
+
 
 def raw_html(name: str) -> str:
     """HTML-Sektion als [vc_raw_html]-Shortcode (rawurlencode + base64)."""
@@ -54,7 +57,7 @@ def raw_snippet(html: str) -> str:
 
 parts = [
     # CSS einbinden (ganz oben)
-    raw_snippet(f'<link rel="stylesheet" href="{ASSET_BASE}/okr-seminar.css">'),
+    raw_snippet(f'<link rel="stylesheet" href="{ASSET_BASE}/okr-seminar.css?v={ASSET_VER}">'),
 
     # 1) Breadcrumb + Hero/Body-Grid (Überblick, Outcomes, Agenda, Sidebar)
     row(
@@ -108,7 +111,7 @@ parts = [
     ),
 
     # JS einbinden (ganz unten)
-    raw_snippet(f'<script src="{ASSET_BASE}/okr-seminar.js" defer></script>'),
+    raw_snippet(f'<script src="{ASSET_BASE}/okr-seminar.js?v={ASSET_VER}" defer></script>'),
 ]
 
 # FAQ: der Toggle-Button muss VOR dem zweiten Accordion stehen, das Accordion
