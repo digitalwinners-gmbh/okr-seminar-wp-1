@@ -118,3 +118,21 @@ html = f"""<!DOCTYPE html>
 out = ROOT / "preview" / "index.html"
 out.write_text(html, encoding="utf-8")
 print(f"OK: {out}")
+
+# ---- Danke-Seiten (Buchung / Angebot / Inhouse) ----
+# [jotform-display]-Shortcodes durch Beispielwerte ersetzen, Assets lokal.
+for name in ["danke-buchung", "danke-anfrage", "danke-inhouse"]:
+    dk = (ROOT / "src" / "danke" / f"{name}.html").read_text(encoding="utf-8")
+    dk = (dk.replace('[jotform-display type="prename"]', "Anna")
+            .replace('[jotform-display type="name"]', "Anna Muster")
+            .replace('[jotform-display type="email"]', "anna@muster.de")
+            .replace(REMOTE + "/images/", "../upload/okr-seminar/images/"))
+    page = f"""<!DOCTYPE html><html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vorschau – {name}</title>
+<link rel="stylesheet" href="../upload/okr-seminar/okr-seminar.css?t={ts}">
+<style>body{{margin:0;background:#f7f4ed}}</style></head><body>
+{dk}
+</body></html>"""
+    (ROOT / "preview" / f"{name}.html").write_text(page, encoding="utf-8")
+    print(f"OK: preview/{name}.html")
