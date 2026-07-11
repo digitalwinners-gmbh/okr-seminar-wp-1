@@ -189,7 +189,7 @@ function seminar6_collect($type) {
         $params = '?code=' . rawurlencode($key)
                 . '&seminar=' . rawurlencode($seminar_title . ' - ' . $city . ' - ' . $date_string)
                 . '&preis=' . rawurlencode($param_preis);
-        $booking_link = 'https://form.jotform.com/251410725597358' . $params;
+        $booking_link = 'https://okrexperten.de/okr-training/okr-seminar/okr-seminar-okr-coach-master/buchung/' . $params;
         $offer_link   = 'https://form.jotform.com/251414712620345' . $params;
         if (strstr($seminar_code, '_LUZ')) { $booking_link = 'https://ikf.ch/de/kurzformate/okr-workshop'; $offer_link = ''; }
         if (strstr($seminar_code, '_VIE')) { $booking_link = 'https://training.techtalk.at/trainings/3-tages-okr-kurs/'; $offer_link = ''; }
