@@ -10,6 +10,8 @@ ohne Footer** (kommen vom Theme).
 |---|---|
 | `page-content.txt` | Fertiger WPBakery-Shortcode-Inhalt → komplett in den WordPress-Editor kopieren |
 | `upload/okr-seminar/` | CSS, JS, Fonts, Bilder → **1:1 per FTP nach `wp-content/uploads/okr-seminar/` hochladen** |
+| `plugin/seminar5-shortcode/` | **Plugin v2** → nach `wp-content/plugins/seminar5-shortcode/` (ersetzt v1, abwärtskompatibel) |
+| `plugin-orig/` | Original-Plugin v1 + seminarinfos3.ini (Referenz, unverändert) |
 | `src/sections/*.html` | Lesbare HTML-Quellen der Sektionen (zum Bearbeiten) |
 | `build.py` | Baut `page-content.txt` neu aus den Sektionen (`python3 build.py`) |
 | `preview/` | Lokale Vorschau ohne WordPress (`python3 preview/make_preview.py`, dann `preview/index.html` öffnen) |
@@ -32,6 +34,36 @@ ohne Footer** (kommen vom Theme).
 4. **Seiteneinstellungen (Bridge):** Seitentemplate ggf. „Full Width“;
    Titel-/Breadcrumb-Bereich des Themes für diese Seite deaktivieren,
    da der Breadcrumb (`[wpseo_breadcrumb]`) bereits im Inhalt steckt.
+
+## Plugin v2 (seminar5-shortcode)
+
+Das Plugin rendert die Terminliste jetzt wahlweise im neuen Design —
+**ohne die Snippet-Seite** (`snippet-seminare-3`) und ohne HTTP-Self-Request:
+
+- `[seminar5 type="3-D-OKR" display="TYPE-HTML-SCHEMA" layout="okrs"]` —
+  neues Layout aus `templates/okrs-item.html`, inkl. schema.org **JSON-LD**
+  pro Termin. IDs bleiben `3D_n` / `3D_REM|PRES_SCHEMA_n` → Filter-JS
+  funktioniert unverändert.
+- **Ohne** `layout="okrs"` läuft der alte v1-Codepfad (Snippet-Seite) —
+  alle anderen Seminarseiten bleiben unberührt.
+- `[seminar5_info type="3-D-OKR" info="…"]` — einzelner Wert als Text.
+  Keys: `min-price-praesenz`, `min-price-online`, `old-price-praesenz`,
+  `old-price-online`, `count-all`, `count-praesenz`, `count-online`,
+  `termine-praesenz` („4 Termine“), `termine-online`, `count-cities`,
+  `orte-praesenz` („an 4 Orten“), `next-date`.
+- `[seminar5_data type="3-D-OKR"]` — gibt `window.okrsSeminarData` aus;
+  `okr-seminar.js` füllt damit alle Elemente mit `data-okrs-info="key"`
+  (z. B. „ab“-Preise und Terminanzahl in der Buchungs-Sidebar). Ohne
+  Plugin bleibt der statische Fallback-Text stehen.
+- Preis-/Rabattlogik (EarlyBird 10/15 %, Summer Special, Zürich/Wien/
+  Luzern-Sonderfälle) entspricht v1; Datenquelle bleibt
+  `private_html/seminarinfos3.ini`.
+
+Lokal testen (ohne WordPress): `php preview/render_seminar5.php`
+
+**Reihenfolge beim Deployment:** erst Plugin aktualisieren, dann
+`page-content.txt` einfügen (sonst rendert v1 das alte Layout in die
+neue Sektion).
 
 ## Dynamisch vs. statisch
 

@@ -7,6 +7,7 @@ Dateien in upload/okr-seminar/.
 
 Aufruf: python3 preview/make_preview.py
 """
+import subprocess
 import time
 from pathlib import Path
 
@@ -36,9 +37,23 @@ def stub_row(n: int, fmt: str, city: str) -> str:
   </div>"""
 
 
+def seminar5_render() -> str:
+    """Echte Plugin-Ausgabe via PHP-CLI (Harness), sonst Stub."""
+    try:
+        out = subprocess.run(
+            ["php", "-d", "error_reporting=0", str(ROOT / "preview" / "render_seminar5.php")],
+            capture_output=True, text=True, timeout=30,
+        )
+        if out.returncode == 0 and "okrs-date-row" in out.stdout:
+            return f'<div class="okrs-seminar-list">{out.stdout}</div>'
+    except Exception:
+        pass
+    return SEMINAR5_STUB
+
+
 SEMINAR5_STUB = f"""
-<div class="okrs"><div class="okrs-seminar-card" style="padding:26px 22px">
-  <p style="margin:0 0 8px;font-weight:700">[seminar5 type="3-D-OKR" display="TYPE-HTML-SCHEMA"] – Stub</p>
+<div class="okrs"><div class="okrs-seminar-list">
+  <p style="margin:0 0 8px;font-weight:700;color:#a89f8c">[seminar5 layout="okrs"] – Stub (PHP nicht verfügbar)</p>
   {stub_row(1, 'online', 'Live-Online 14.09.')}
   {stub_row(2, 'praesenz', 'Frankfurt 30.09.')}
   {stub_row(3, 'online', 'Live-Online 07.10.')}
@@ -69,7 +84,7 @@ body = "".join([
     wrap_row(sec("03-trainer.html"), "#1c1813", "trainer"),
     wrap_row(sec("04-zertifikat.html"), "#f7f4ed"),
     wrap_row(sec("05-zielgruppe.html"), "#fbf9f3"),
-    wrap_row(sec("06-termine-intro.html") + SEMINAR5_STUB + sec("07-termine-outro.html"), "#1c1813", "termine"),
+    wrap_row(sec("06-termine-intro.html") + seminar5_render() + sec("07-termine-outro.html"), "#1c1813", "termine"),
     wrap_row(sec("08-testimonials.html"), "#f7f4ed"),
     wrap_row(sec("09-ueber-uns.html"), "#fbf9f3"),
     wrap_row(sec("10-kontakt.html"), "#f7f4ed", "kontakt"),

@@ -1,0 +1,30 @@
+<div class="okrs okrs-date-row okrs-date-row--{avail}" id="3D_{n}" data-format="{format}">
+  <div class="okrs-date-edge"></div>
+  <div class="okrs-date-main">
+    <div class="okrs-date-head">
+      <span class="okrs-date-date">{date}</span>
+      <span class="okrs-date-city">{city}</span>
+      <span class="okrs-date-avail">{avail_label}</span>
+      {special_chip}
+      <div class="okrs-date-right">
+        <div class="okrs-date-pricebox">
+          <div class="okrs-date-price{price_class}">{price}</div>
+          <div class="okrs-date-price-sub">{price_old_html}{ust_text}</div>
+        </div>
+        <button type="button" class="okrs-date-toggle">Details <span class="okrs-date-chev">▾</span></button>
+        {booking_button}
+      </div>
+    </div>
+    <div class="okrs-date-details">
+      <div class="okrs-date-details-grid">
+        <div><strong>Dauer</strong><br>{duration}</div>
+        <div><strong>Ort</strong><br>{location}</div>
+        <div><strong>Trainer</strong><br>{trainer}</div>
+        <div><strong>Leistungen</strong><br>{services}</div>
+      </div>
+      {note_html}
+      {offer_html}
+    </div>
+  </div>
+</div>
+<div id="3D_{schema_fmt}_SCHEMA_{n}" class="okrs-date-schema" style="display:none" aria-hidden="true"><script type="application/ld+json">{json_ld}</script></div>

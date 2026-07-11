@@ -430,6 +430,67 @@ body .wrapper_inner { overflow: clip !important; }
 }
 .okrs-reserve-cta:hover { background: rgba(217,183,92,.12); }
 
+/* ---- Neue Terminliste (Plugin layout="okrs") ---- */
+.okrs-seminar-list { max-width: 1172px; width: calc(100% - 48px); margin: 2px auto 0; }
+.okrs-date-row {
+  background: #fbf9f3; color: #1c1813; border-radius: 14px;
+  border: 1px solid rgba(0,0,0,.04); overflow: hidden;
+  display: flex; margin-top: 12px;
+}
+.okrs-date-edge { width: 6px; flex-shrink: 0; background: #2e9b5b; }
+.okrs-date-row--wenige .okrs-date-edge { background: #e0992f; }
+.okrs-date-row--ausgebucht .okrs-date-edge { background: #d2453a; }
+.okrs-date-main { flex: 1; padding: 16px 20px; min-width: 0; }
+.okrs-date-head { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.okrs-date-date { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 17px; min-width: 120px; }
+.okrs-date-city { min-width: 150px; font-weight: 700; font-size: 15px; color: #3a352d; }
+.okrs-date-avail {
+  font-size: 12px; font-weight: 700; padding: 4px 11px; border-radius: 999px;
+  white-space: nowrap; color: #1d7a44; background: #d8f0e0; width: 118px; text-align: center;
+}
+.okrs-date-row--wenige .okrs-date-avail { color: #8a6c2b; background: #fbe6c6; }
+.okrs-date-row--ausgebucht .okrs-date-avail { color: #a3322a; background: #f6dada; }
+.okrs-date-special {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #dcf0e2; color: #1d7a44; font-size: 11px; font-weight: 800;
+  padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+}
+.okrs-date-special-dot { width: 5px; height: 5px; border-radius: 50%; background: #2e9b5b; }
+.okrs-date-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+.okrs-date-pricebox { text-align: right; min-width: 118px; }
+.okrs-date-price { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 16px; line-height: 1; color: #1c1813; }
+.okrs-date-price--special { color: #1d7a44; }
+.okrs-date-price-sub { font-size: 10.5px; color: #8a8275; margin-top: 3px; }
+.okrs-date-price-old { text-decoration: line-through; }
+.okrs-date-toggle {
+  background: none; border: none; cursor: pointer; padding: 0;
+  color: #a9863c; font-family: 'Hanken Grotesk', sans-serif;
+  font-weight: 700; font-size: 14px; white-space: nowrap;
+}
+.okrs-date-book {
+  text-decoration: none !important; background: #a9863c; color: #fff !important;
+  font-weight: 700; font-size: 14px; padding: 11px 20px; border-radius: 10px;
+  white-space: nowrap; box-shadow: 0 6px 16px rgba(169,134,60,.28);
+  font-family: 'Hanken Grotesk', sans-serif; display: inline-block; line-height: 1.2;
+}
+.okrs-date-book:hover { background: #97772f; }
+.okrs-date-book--disabled { background: #d9d9d9; color: #555 !important; box-shadow: none; cursor: not-allowed; }
+.okrs-date-details { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid #ece5d6; }
+.okrs-date-row.is-open .okrs-date-details { display: block; }
+.okrs-date-details-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 14px; font-size: 13px; color: #5a544a; line-height: 1.45;
+}
+.okrs-date-details-grid strong { color: #1c1813; }
+.okrs-date-note { margin-top: 12px; font-size: 12.5px; color: #8a6c2b; font-weight: 700; }
+.okrs-date-offer { margin-top: 8px; }
+.okrs-date-offer a { color: #a9863c !important; font-weight: 700; font-size: 13.5px; text-decoration: none !important; }
+.okrs-date-empty { color: #a89f8c; font-size: 15px; }
+@media (max-width: 760px) {
+  .okrs-date-right { margin-left: 0; width: 100%; justify-content: space-between; }
+  .okrs-date-pricebox { text-align: left; }
+}
+
 /* Heller Container um [seminar5] (innerhalb der dunklen Termine-Sektion) */
 .okrs-seminar-card {
   background: #fbf9f3; color: #1c1813; border-radius: 16px;

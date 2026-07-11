@@ -152,7 +152,7 @@
        das Format steckt also in der ID. Zahlen in den Buttons werden zur
        Laufzeit aus der tatsächlichen Terminliste befüllt. */
     var filterBar = document.querySelector('.okrs-filterbar');
-    var seminarCard = document.querySelector('.okrs-seminar-card');
+    var seminarCard = document.querySelector('.okrs-seminar-list, .okrs-seminar-card');
     if (filterBar && seminarCard) {
       var entries = []; // { format: 'praesenz'|'online', rows: [mainRow, schemaRow] }
       seminarCard.querySelectorAll('[id^="3D_"]').forEach(function (el) {
@@ -214,6 +214,28 @@
         });
       });
       applyFilter('alle');
+    }
+
+    /* ---------- Termin-Details auf-/zuklappen (neue Liste, layout="okrs") ---------- */
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('.okrs-date-toggle');
+      if (!btn) return;
+      var row = btn.closest('.okrs-date-row');
+      if (!row) return;
+      var open = row.classList.toggle('is-open');
+      var chev = btn.querySelector('.okrs-date-chev');
+      if (chev) chev.textContent = open ? '▴' : '▾';
+    });
+
+    /* ---------- Dynamische Kennzahlen ([seminar5_data] → Sidebar) ----------
+       Das Plugin gibt window.okrsSeminarData aus; alle Elemente mit
+       data-okrs-info="key" bekommen den Live-Wert. Ohne Plugin-Daten bleibt
+       der statische Fallback-Text im HTML stehen. */
+    if (window.okrsSeminarData) {
+      document.querySelectorAll('[data-okrs-info]').forEach(function (el) {
+        var v = window.okrsSeminarData[el.getAttribute('data-okrs-info')];
+        if (typeof v === 'string' && v !== '') el.textContent = v;
+      });
     }
 
     /* ---------- Generische Toggles (Zielgruppe im Detail, weitere FAQs) ---------- */
