@@ -22,7 +22,10 @@
       });
     });
 
-    /* ---------- Sidebar-Tabs (Präsenz / Live-Online / Inhouse) ---------- */
+    /* ---------- Sidebar-Tabs (Präsenz / Live-Online / Inhouse) ----------
+       Wählt zusätzlich den passenden Termin-Filter aus (selectFilter wird
+       weiter unten im Filter-Block belegt). */
+    var selectFilter; // wird im Termin-Filter-Block zugewiesen
     var sideTabs = document.querySelectorAll('.okrs-side-tab');
     sideTabs.forEach(function (tab) {
       tab.addEventListener('click', function () {
@@ -31,6 +34,7 @@
         document.querySelectorAll('.okrs-side-pane').forEach(function (p) {
           p.classList.toggle('is-active', p.getAttribute('data-pane') === target);
         });
+        if (typeof selectFilter === 'function') selectFilter(target);
       });
     });
 
@@ -182,12 +186,20 @@
         }
       };
 
+      // Zentrale Auswahl: Button aktivieren + Filter anwenden.
+      // Wird auch von den Sidebar-Tabs aufgerufen (Präsenz/Online/Inhouse).
+      selectFilter = function (key) {
+        var target = filterBar.querySelector('[data-filter="' + key + '"]');
+        if (!target) return;
+        filterBar.querySelectorAll('.okrs-filter-btn').forEach(function (b) {
+          b.classList.toggle('is-active', b === target);
+        });
+        applyFilter(key);
+      };
+
       filterBar.querySelectorAll('.okrs-filter-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
-          filterBar.querySelectorAll('.okrs-filter-btn').forEach(function (b) {
-            b.classList.toggle('is-active', b === btn);
-          });
-          applyFilter(btn.getAttribute('data-filter'));
+          selectFilter(btn.getAttribute('data-filter'));
         });
       });
       applyFilter('alle');
