@@ -22,7 +22,7 @@ SECTIONS = ROOT / "src" / "sections"
 ASSET_BASE = "https://okrexperten.de/wp-content/uploads/okr-seminar"
 
 # Bei Änderungen an CSS/JS hochzählen — umgeht Cloudflare-/Browser-Cache
-ASSET_VER = "12"
+ASSET_VER = "13"
 
 
 def raw_html(name: str) -> str:
@@ -84,8 +84,8 @@ parts = [
     row(
         raw_html("06-termine-intro.html")
         + '[vc_column_text el_class="okrs-seminar-list"]'
-        '[seminar5 type="3-D-OKR" display="TYPE-HTML-SCHEMA" layout="okrs"]'
-        '[seminar5_data type="3-D-OKR"]'
+        '[seminar6 type="3-D-OKR"]'
+        '[seminar6_data type="3-D-OKR"]'
         "[/vc_column_text]"
         + raw_html("07-termine-outro.html"),
         bg="#1c1813",

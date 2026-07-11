@@ -41,7 +41,7 @@ def seminar5_render() -> str:
     """Echte Plugin-Ausgabe via PHP-CLI (Harness), sonst Stub."""
     try:
         out = subprocess.run(
-            ["php", "-d", "error_reporting=0", str(ROOT / "preview" / "render_seminar5.php")],
+            ["php", "-d", "error_reporting=0", str(ROOT / "preview" / "render_seminar6.php")],
             capture_output=True, text=True, timeout=30,
         )
         if out.returncode == 0 and "okrs-date-row" in out.stdout:
@@ -53,7 +53,7 @@ def seminar5_render() -> str:
 
 SEMINAR5_STUB = f"""
 <div class="okrs"><div class="okrs-seminar-list">
-  <p style="margin:0 0 8px;font-weight:700;color:#a89f8c">[seminar5 layout="okrs"] – Stub (PHP nicht verfügbar)</p>
+  <p style="margin:0 0 8px;font-weight:700;color:#a89f8c">[seminar6] – Stub (PHP nicht verfügbar)</p>
   {stub_row(1, 'online', 'Live-Online 14.09.')}
   {stub_row(2, 'praesenz', 'Frankfurt 30.09.')}
   {stub_row(3, 'online', 'Live-Online 07.10.')}

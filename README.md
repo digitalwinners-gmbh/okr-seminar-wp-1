@@ -10,7 +10,7 @@ ohne Footer** (kommen vom Theme).
 |---|---|
 | `page-content.txt` | Fertiger WPBakery-Shortcode-Inhalt → komplett in den WordPress-Editor kopieren |
 | `upload/okr-seminar/` | CSS, JS, Fonts, Bilder → **1:1 per FTP nach `wp-content/uploads/okr-seminar/` hochladen** |
-| `plugin/seminar5-shortcode/` | **Plugin v2** → nach `wp-content/plugins/seminar5-shortcode/` (ersetzt v1, abwärtskompatibel) |
+| `plugin/seminar6-shortcode/` | **Neues Plugin** → nach `wp-content/plugins/seminar6-shortcode/` (läuft parallel zu seminar5) |
 | `plugin-orig/` | Original-Plugin v1 + seminarinfos3.ini (Referenz, unverändert) |
 | `src/sections/*.html` | Lesbare HTML-Quellen der Sektionen (zum Bearbeiten) |
 | `build.py` | Baut `page-content.txt` neu aus den Sektionen (`python3 build.py`) |
@@ -35,23 +35,22 @@ ohne Footer** (kommen vom Theme).
    Titel-/Breadcrumb-Bereich des Themes für diese Seite deaktivieren,
    da der Breadcrumb (`[wpseo_breadcrumb]`) bereits im Inhalt steckt.
 
-## Plugin v2 (seminar5-shortcode)
+## Plugin seminar6-shortcode
 
-Das Plugin rendert die Terminliste jetzt wahlweise im neuen Design —
-**ohne die Snippet-Seite** (`snippet-seminare-3`) und ohne HTTP-Self-Request:
+Eigenständiges Plugin für die neue Terminliste — läuft **parallel** zum
+alten "Seminar Shortcode 5", das für alle anderen Seminarseiten
+unverändert weiterläuft. Kein HTTP-Self-Request auf die Snippet-Seite:
 
-- `[seminar5 type="3-D-OKR" display="TYPE-HTML-SCHEMA" layout="okrs"]` —
+- `[seminar6 type="3-D-OKR"]` —
   neues Layout aus `templates/okrs-item.html`, inkl. schema.org **JSON-LD**
   pro Termin. IDs bleiben `3D_n` / `3D_REM|PRES_SCHEMA_n` → Filter-JS
   funktioniert unverändert.
-- **Ohne** `layout="okrs"` läuft der alte v1-Codepfad (Snippet-Seite) —
-  alle anderen Seminarseiten bleiben unberührt.
-- `[seminar5_info type="3-D-OKR" info="…"]` — einzelner Wert als Text.
+- `[seminar6_info type="3-D-OKR" info="…"]` — einzelner Wert als Text.
   Keys: `min-price-praesenz`, `min-price-online`, `old-price-praesenz`,
   `old-price-online`, `count-all`, `count-praesenz`, `count-online`,
   `termine-praesenz` („4 Termine“), `termine-online`, `count-cities`,
   `orte-praesenz` („an 4 Orten“), `next-date`.
-- `[seminar5_data type="3-D-OKR"]` — gibt `window.okrsSeminarData` aus;
+- `[seminar6_data type="3-D-OKR"]` — gibt `window.okrsSeminarData` aus;
   `okr-seminar.js` füllt damit alle Elemente mit `data-okrs-info="key"`
   (z. B. „ab“-Preise und Terminanzahl in der Buchungs-Sidebar). Ohne
   Plugin bleibt der statische Fallback-Text stehen.
@@ -59,18 +58,17 @@ Das Plugin rendert die Terminliste jetzt wahlweise im neuen Design —
   Luzern-Sonderfälle) entspricht v1; Datenquelle bleibt
   `private_html/seminarinfos3.ini`.
 
-Lokal testen (ohne WordPress): `php preview/render_seminar5.php`
+Lokal testen (ohne WordPress): `php preview/render_seminar6.php`
 
-**Reihenfolge beim Deployment:** erst Plugin aktualisieren, dann
-`page-content.txt` einfügen (sonst rendert v1 das alte Layout in die
-neue Sektion).
+**Reihenfolge beim Deployment:** erst Plugin seminar6-shortcode
+installieren & aktivieren, dann `page-content.txt` einfügen (sonst
+bleibt der [seminar6]-Shortcode als Text sichtbar).
 
 ## Dynamisch vs. statisch
 
 - **Dynamisch (Shortcodes bleiben):**
-  - Termine: `[seminar5 type="3-D-OKR" display="TYPE-HTML-SCHEMA"]` –
-    liegt in einer hellen Karte innerhalb der dunklen Termine-Sektion
-    (Klasse `okrs-seminar-card`), damit das bestehende Markup lesbar bleibt.
+  - Termine: `[seminar6 type="3-D-OKR"]` + `[seminar6_data]` –
+    neues Plugin seminar6-shortcode (siehe oben).
   - FAQ: `[sp_easyaccordion id="13796"]` + `[sp_easyaccordion id="16052"]`
     (zweites Accordion per „Weitere Fragen anzeigen“ einblendbar).
   - Breadcrumb: `[wpseo_breadcrumb]`.
@@ -87,9 +85,9 @@ neue Sektion).
 - **Vimeo-Video** (Borlabs-Embed der alten Seite): im Claude-Design nicht
   vorhanden. Bei Bedarf als `[borlabs-cookie …]`-Block z. B. nach der
   Trainer-Sektion einfügen.
-- **Preise/Terminanzahl in der Sidebar** („ab 1.691,50 €“, „6 Termine“)
-  sind statisch — bei Preisänderungen in `src/sections/01-hero.html`
-  anpassen und neu bauen.
+- **Preise/Terminanzahl in der Sidebar** kommen live aus
+  `[seminar6_data]` (data-okrs-info-Platzhalter); die statischen Texte in
+  `src/sections/01-hero.html` sind nur Fallback, falls das Plugin fehlt.
 - Das Kontaktformular-Design aus dem Claude-Entwurf war eine Attrappe;
   stattdessen kommt das Jotform-Embed (siehe oben).
 

@@ -1,29 +1,29 @@
 <?php
 /*
- * Seminar Shortcode 5 – neues Layout ("okrs") + Kennzahlen-Shortcodes.
+ * Seminar Shortcode 6 – Kernlogik: INI einlesen, Termine berechnen,
+ * neues Layout aus templates/okrs-item.html rendern, Kennzahlen liefern.
  *
- * Wird von seminar-plugin5.php eingebunden. Der alte Render-Pfad
- * (Snippet-Seite + DOMDocument) bleibt unberührt; dieses Modul liest die
- * seminarinfos3.ini selbst ein und rendert aus templates/okrs-item.html.
- *
- * Shortcodes:
- *   [seminar5 type="3-D-OKR" display="TYPE-HTML-SCHEMA" layout="okrs"]
+ * Shortcodes (Registrierung in seminar6-shortcode.php bzw. unten):
+ *   [seminar6 type="3-D-OKR"]
  *       → Terminliste im neuen Design inkl. schema.org JSON-LD
- *   [seminar5_info type="3-D-OKR" info="min-price-praesenz"]
- *       → einzelner Wert als Text (siehe seminar5_okrs_stats für alle Keys)
- *   [seminar5_data type="3-D-OKR"]
+ *   [seminar6_info type="3-D-OKR" info="min-price-praesenz"]
+ *       → einzelner Wert als Text (siehe seminar6_stats für alle Keys)
+ *   [seminar6_data type="3-D-OKR"]
  *       → <script> mit window.okrsSeminarData für JS-Platzhalter
  *         (data-okrs-info="…"-Elemente, z. B. in der Buchungs-Sidebar)
+ *
+ * Preis-/Rabattlogik entspricht Seminar Shortcode 5; Datenquelle bleibt
+ * private_html/seminarinfos3.ini.
  */
 
-if (!defined('ABSPATH') && !defined('SEMINAR5_TEST')) { exit; }
+if (!defined('ABSPATH') && !defined('SEMINAR6_TEST')) { exit; }
 
-function seminar5_okrs_format_currency($amount, $currency) {
+function seminar6_format_currency($amount, $currency) {
     return number_format($amount, 2, ',', '.') . ' ' . $currency;
 }
 
-function seminar5_okrs_ini_path() {
-    if (defined('SEMINAR5_INI_PATH')) return SEMINAR5_INI_PATH;
+function seminar6_ini_path() {
+    if (defined('SEMINAR6_INI_PATH')) return SEMINAR6_INI_PATH;
     $candidates = array(
         plugin_dir_path(__FILE__) . '../../../../private_html/seminarinfos3.ini', // Produktiv (wie v1)
         plugin_dir_path(__FILE__) . 'seminarinfos3.ini',
@@ -39,8 +39,8 @@ function seminar5_okrs_ini_path() {
  * Liest die INI und berechnet pro zukünftigem Termin alle Felder.
  * Preis-/Rabattlogik entspricht v1 (EarlyBird, Summer Special, Zürich/Wien/Luzern).
  */
-function seminar5_okrs_collect($type) {
-    $config = @parse_ini_file(seminar5_okrs_ini_path(), false, INI_SCANNER_RAW);
+function seminar6_collect($type) {
+    $config = @parse_ini_file(seminar6_ini_path(), false, INI_SCANNER_RAW);
     if (!$config) return array();
 
     $monate = array(
@@ -181,8 +181,8 @@ function seminar5_okrs_collect($type) {
         }
 
         // Buchungs-/Angebotslinks (wie v1)
-        $price_net = seminar5_okrs_format_currency($price_net_float, $currency_symbol);
-        $price_gross = seminar5_okrs_format_currency($price_net_float * 1.19, '€') . ' € inkl. 19% USt.';
+        $price_net = seminar6_format_currency($price_net_float, $currency_symbol);
+        $price_gross = seminar6_format_currency($price_net_float * 1.19, '€') . ' € inkl. 19% USt.';
         $param_preis = $price_net . ' zzgl. USt - bzw. ' . $price_gross;
         if ($discount > 0) $param_preis .= ' - inkl. EarlyBird-Rabatt von ' . $discount . ' %';
         if (strstr($seminar_code, '_ZUR')) $param_preis = $price_net . ' netto';
@@ -236,7 +236,7 @@ function seminar5_okrs_collect($type) {
             'currency'       => $currency,
             'currency_symbol' => $currency_symbol,
             'price'          => $price_net,
-            'price_old'      => $discount > 0 ? seminar5_okrs_format_currency($price_base, $currency_symbol) : '',
+            'price_old'      => $discount > 0 ? seminar6_format_currency($price_base, $currency_symbol) : '',
             'ust_text'       => $ust_text,
             'booking_link'   => $booking_link,
             'offer_link'     => $offer_link,
@@ -250,8 +250,8 @@ function seminar5_okrs_collect($type) {
 }
 
 /** Terminliste im neuen Design rendern (aus templates/okrs-item.html). */
-function seminar5_okrs_render($type) {
-    $entries = seminar5_okrs_collect($type);
+function seminar6_render($type) {
+    $entries = seminar6_collect($type);
     if (!$entries) return '<p class="okrs-date-empty">Aktuell sind keine offenen Termine verfügbar – gerne als Inhouse-Seminar anfragen.</p>';
 
     $template = @file_get_contents(plugin_dir_path(__FILE__) . 'templates/okrs-item.html');
@@ -349,9 +349,9 @@ function seminar5_okrs_render($type) {
     return $output;
 }
 
-/** Kennzahlen für [seminar5_info] und [seminar5_data]. */
-function seminar5_okrs_stats($type) {
-    $entries = seminar5_okrs_collect($type);
+/** Kennzahlen für [seminar6_info] und [seminar6_data]. */
+function seminar6_stats($type) {
+    $entries = seminar6_collect($type);
     $praesenz = array_values(array_filter($entries, fn($e) => $e['format'] === 'praesenz'));
     $online   = array_values(array_filter($entries, fn($e) => $e['format'] === 'online'));
 
@@ -367,7 +367,7 @@ function seminar5_okrs_stats($type) {
 
     $cities = array_values(array_unique(array_map(fn($e) => $e['city'], $praesenz)));
 
-    $fmt = fn($f, $c) => seminar5_okrs_format_currency($f, $c);
+    $fmt = fn($f, $c) => seminar6_format_currency($f, $c);
 
     return array(
         'count-all'          => (string) count($entries),
@@ -385,19 +385,19 @@ function seminar5_okrs_stats($type) {
     );
 }
 
-/** [seminar5_info type="3-D-OKR" info="min-price-praesenz"] → einzelner Wert */
-function seminar5_info_shortcode($atts) {
+/** [seminar6_info type="3-D-OKR" info="min-price-praesenz"] → einzelner Wert */
+function seminar6_info_shortcode($atts) {
     $atts = shortcode_atts(array('type' => '3-D-OKR', 'info' => ''), $atts);
-    $stats = seminar5_okrs_stats($atts['type']);
+    $stats = seminar6_stats($atts['type']);
     return isset($stats[$atts['info']]) ? esc_html($stats[$atts['info']]) : '';
 }
 
-/** [seminar5_data type="3-D-OKR"] → window.okrsSeminarData für JS-Platzhalter */
-function seminar5_data_shortcode($atts) {
+/** [seminar6_data type="3-D-OKR"] → window.okrsSeminarData für JS-Platzhalter */
+function seminar6_data_shortcode($atts) {
     $atts = shortcode_atts(array('type' => '3-D-OKR'), $atts);
-    $stats = seminar5_okrs_stats($atts['type']);
+    $stats = seminar6_stats($atts['type']);
     return '<script>window.okrsSeminarData = ' . wp_json_encode($stats, JSON_UNESCAPED_UNICODE) . ';</script>';
 }
 
-add_shortcode('seminar5_info', 'seminar5_info_shortcode');
-add_shortcode('seminar5_data', 'seminar5_data_shortcode');
+add_shortcode('seminar6_info', 'seminar6_info_shortcode');
+add_shortcode('seminar6_data', 'seminar6_data_shortcode');
