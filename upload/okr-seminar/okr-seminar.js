@@ -23,8 +23,8 @@
     });
 
     /* ---------- Sidebar-Tabs (Präsenz / Live-Online / Inhouse) ----------
-       Wählt zusätzlich den passenden Termin-Filter aus (selectFilter wird
-       weiter unten im Filter-Block belegt). */
+       Nur Umschalten der Panes — der Termin-Filter wird bewusst NICHT
+       mitgeschaltet; das machen ausschließlich die CTA-Buttons darunter. */
     var selectFilter; // wird im Termin-Filter-Block zugewiesen
     var sideTabs = document.querySelectorAll('.okrs-side-tab');
     sideTabs.forEach(function (tab) {
@@ -34,7 +34,6 @@
         document.querySelectorAll('.okrs-side-pane').forEach(function (p) {
           p.classList.toggle('is-active', p.getAttribute('data-pane') === target);
         });
-        if (typeof selectFilter === 'function') selectFilter(target);
       });
     });
 
