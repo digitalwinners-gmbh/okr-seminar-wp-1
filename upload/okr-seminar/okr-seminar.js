@@ -39,15 +39,20 @@
 
     /* CTA-Buttons in den Sidebar-Tabs („Präsenz-Termine" / „Online-Termine"):
        setzen beim Klick den passenden Termin-Filter, bevor der Anker
-       zu #termine scrollt — wichtig für den ersten Klick ohne Tab-Wechsel. */
-    document.querySelectorAll('.okrs-side-pane .okrs-side-cta[href="#termine"]').forEach(function (cta) {
-      cta.addEventListener('click', function () {
-        var pane = cta.closest('.okrs-side-pane');
-        if (pane && typeof selectFilter === 'function') {
-          selectFilter(pane.getAttribute('data-pane'));
-        }
-      });
-    });
+       zu #termine scrollt — wichtig für den ersten Klick ohne Tab-Wechsel.
+       WICHTIG: window + Capture-Phase! Das Theme fängt Klicks auf
+       #anker-Links per Capture-Handler ab (Smooth-Scroll) und stoppt die
+       Propagation — Element-Listener kämen dort nie an. Die Window-
+       Capture-Phase läuft garantiert vor allen document-Handlern. */
+    window.addEventListener('click', function (e) {
+      if (!e.target || !e.target.closest) return;
+      var cta = e.target.closest('.okrs-side-pane .okrs-side-cta[href="#termine"]');
+      if (!cta) return;
+      var pane = cta.closest('.okrs-side-pane');
+      if (pane && typeof selectFilter === 'function') {
+        selectFilter(pane.getAttribute('data-pane'));
+      }
+    }, true);
 
     /* ---------- Awards-Karussell (Auto-Advance + Pfeile + Dots) ---------- */
     var awardTrack = document.querySelector('.okrs-awards-track');
