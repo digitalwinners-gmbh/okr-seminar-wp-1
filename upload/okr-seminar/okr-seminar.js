@@ -128,26 +128,21 @@
     bindSlider('okrs-bn-track', '.okrs-bn-btn--prev', '.okrs-bn-btn--next', '.okrs-bn-card', 16);
     bindSlider('okrs-t-track', '.okrs-t-btn--prev', '.okrs-t-btn--next', '.okrs-t-card', 18);
 
-    /* ---------- Teilen-Button ---------- */
+    /* ---------- Teilen-Button: öffnet E-Mail mit Betreff + Seiten-Link ----------
+       URL dynamisch aus window.location (ohne #anker) — funktioniert auch,
+       wenn sich die Seiten-URL später ändert. */
     var shareBtn = document.getElementById('okrs-share');
     if (shareBtn) {
       shareBtn.addEventListener('click', function () {
         var url = window.location.href.split('#')[0];
-        var data = {
-          title: 'OKR Coach & Master Seminar',
-          text: 'Werde in 3 Tagen zertifizierter OKR Coach, Master & Champion.',
-          url: url
-        };
-        if (navigator.share) { navigator.share(data).catch(function () {}); return; }
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(url).then(function () {
-            var label = shareBtn.querySelector('span');
-            if (!label) return;
-            var old = label.textContent;
-            label.textContent = 'Link kopiert!';
-            setTimeout(function () { label.textContent = old; }, 2200);
-          }).catch(function () {});
-        }
+        var subject = 'OKR Seminar: In nur 3 Tagen zum zertifizierten OKR Coach, Master & Champion';
+        var body = 'Hallo,\n\n'
+          + 'dieses OKR Seminar könnte dich interessieren – in nur 3 Tagen zum '
+          + 'zertifizierten OKR Coach, Master & Champion:\n\n'
+          + url + '\n\n'
+          + 'Viele Grüße';
+        window.location.href = 'mailto:?subject=' + encodeURIComponent(subject)
+          + '&body=' + encodeURIComponent(body);
       });
     }
 
