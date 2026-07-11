@@ -491,6 +491,8 @@ body .wrapper_inner { overflow: clip !important; }
   gap: 14px; font-size: 13px; color: #5a544a; line-height: 1.45;
 }
 .okrs-date-details-grid strong { color: #1c1813; }
+.okrs-date-gross { margin-top: 14px; font-size: 13px; color: #5a544a; line-height: 1.5; }
+.okrs-date-gross strong { color: #1c1813; }
 .okrs-date-note { margin-top: 12px; font-size: 12.5px; color: #8a6c2b; font-weight: 700; }
 .okrs-date-offer { margin-top: 8px; }
 .okrs-date-offer a { color: #a9863c !important; font-weight: 700; font-size: 13.5px; text-decoration: none !important; }

@@ -194,6 +194,23 @@ function seminar6_collect($type) {
         if (strstr($seminar_code, '_LUZ')) { $booking_link = 'https://ikf.ch/de/kurzformate/okr-workshop'; $offer_link = ''; }
         if (strstr($seminar_code, '_VIE')) { $booking_link = 'https://training.techtalk.at/trainings/3-tages-okr-kurs/'; $offer_link = ''; }
 
+        // Bruttopreis-Text fürs Details-Panel (Rechenregeln wie v1)
+        $price_gross_text = seminar6_format_currency($price_net_float * 1.19, '€') . ' inkl. 19 % USt.';
+        if (strstr($seminar_code, '_VIE')) {
+            $price_gross_text = seminar6_format_currency($price_net_float * 1.20, '€') . ' inkl. 20 % USt.';
+        }
+        if (strstr($seminar_code, '_LUZ')) {
+            $price_gross_text = seminar6_format_currency($price_net_float, 'CHF') . ' inkl. 7,7 % MWST';
+        }
+        if (strstr($seminar_code, '_ZUR')) {
+            $price_gross_text = seminar6_format_currency($price_net_float, 'CHF')
+                . ' netto, Rechnung ohne Deutsche USt., ggf. Reverse Charge.<br>'
+                . 'Für Unternehmen mit Sitz in Deutschland: '
+                . seminar6_format_currency($price_net_float * 1.1, 'EUR')
+                . ' zzgl. 19 % USt. = '
+                . seminar6_format_currency($price_net_float * 1.19, 'EUR');
+        }
+
         // Verfügbarkeit
         $seats = is_numeric($seats_available) ? (int) $seats_available : 0;
         $avail = 'verfuegbar';
@@ -224,6 +241,7 @@ function seminar6_collect($type) {
             'location_street' => $location_street,
             'location_plz'   => $location_plz,
             'cert_note'      => $cert_note,
+            'price_gross_text' => $price_gross_text,
             'location_city'  => $location_city,
             'trainer'        => $trainer,
             'services'       => ($services === '-' || $services === '') ? 'Interaktive Gruppenübungen' : $services,
@@ -347,6 +365,7 @@ function seminar6_render($type) {
             'note_html'      => $note_html,
             'offer_button'   => $offer_button,
             'location_cert_html' => $location_cert_html,
+            'gross_html'     => '<div class="okrs-date-gross"><strong>Preis</strong><br>' . $e['price_gross_text'] . '</div>',
             'json_ld'        => wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
         );
 
