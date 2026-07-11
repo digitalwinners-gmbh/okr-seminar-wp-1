@@ -278,10 +278,13 @@ function seminar6_render($type) {
             $booking_button = '<a class="okrs-date-book" href="' . esc_url($e['booking_link']) . '" target="_blank" rel="noopener">Buchen</a>';
         }
 
-        // Angebot-Button (weiß, Goldrand, zweizeilig) zwischen Details und Buchen
+        // Angebot-Button (weiß, Goldrand, zweizeilig) zwischen Details und Buchen.
+        // Ohne Angebots-Link (Partner-Termine Wien/Luzern): unsichtbarer
+        // Platzhalter gleicher Größe, damit Preis/Details spaltengenau
+        // mit den anderen Zeilen ausgerichtet bleiben.
         $offer_button = ($e['offer_link'] !== '')
             ? '<a class="okrs-date-offer-btn" href="' . esc_url($e['offer_link']) . '" target="_blank" rel="noopener">Angebot<br>anfragen</a>'
-            : '';
+            : '<span class="okrs-date-offer-btn okrs-date-offer-btn--ghost" aria-hidden="true">Angebot<br>anfragen</span>';
 
         // Zertifizierungs-Hinweis als unauffällige 2. Zeile beim Ort
         $location_cert_html = ($e['cert_note'] !== '')

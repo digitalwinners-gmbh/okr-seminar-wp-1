@@ -474,6 +474,8 @@ body .wrapper_inner { overflow: clip !important; }
   white-space: nowrap; font-family: 'Hanken Grotesk', sans-serif; display: inline-block;
 }
 .okrs-date-offer-btn:hover { background: #a9863c; color: #fff !important; }
+/* Platzhalter bei Partner-Terminen ohne Angebots-Link: hält die Spalte frei */
+.okrs-date-offer-btn--ghost { visibility: hidden; }
 .okrs-date-book {
   text-decoration: none !important; background: #a9863c; color: #fff !important;
   font-weight: 700; font-size: 14px; padding: 11px 20px; border-radius: 10px;
