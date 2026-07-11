@@ -12,18 +12,18 @@
           <div class="okrs-date-price-sub">{price_old_html}{ust_text}</div>
         </div>
         <button type="button" class="okrs-date-toggle">Details <span class="okrs-date-chev">▾</span></button>
+        {offer_button}
         {booking_button}
       </div>
     </div>
     <div class="okrs-date-details">
       <div class="okrs-date-details-grid">
         <div><strong>Dauer</strong><br>{duration}</div>
-        <div><strong>Ort</strong><br>{location}</div>
+        <div><strong>Ort</strong><br>{location}{location_cert_html}</div>
         <div><strong>Trainer</strong><br>{trainer}</div>
         <div><strong>Leistungen</strong><br>{services}</div>
       </div>
       {note_html}
-      {offer_html}
     </div>
   </div>
 </div>

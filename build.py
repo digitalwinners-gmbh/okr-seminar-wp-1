@@ -22,7 +22,7 @@ SECTIONS = ROOT / "src" / "sections"
 ASSET_BASE = "https://okrexperten.de/wp-content/uploads/okr-seminar"
 
 # Bei Änderungen an CSS/JS hochzählen — umgeht Cloudflare-/Browser-Cache
-ASSET_VER = "13"
+ASSET_VER = "14"
 
 
 def raw_html(name: str) -> str:

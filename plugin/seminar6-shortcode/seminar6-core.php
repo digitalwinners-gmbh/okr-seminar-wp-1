@@ -205,7 +205,6 @@ function seminar6_collect($type) {
         if ($execution === 'X')  $notes[] = 'Durchführung gesichert';
         if ($seats > 0 && $execution !== 'A') $notes[] = 'Nur noch ' . $seats . ' Plätze verfügbar';
         if ($special_3for2 === '3') $notes[] = '3-für-2-Team-Special – 2 zahlen, 3 nehmen teil';
-        if ($cert_note !== '')   $notes[] = $cert_note;
         if ($partner_note !== '') $notes[] = $partner_note;
 
         $entries[] = array(
@@ -224,6 +223,7 @@ function seminar6_collect($type) {
             'location_name'  => $location_name,
             'location_street' => $location_street,
             'location_plz'   => $location_plz,
+            'cert_note'      => $cert_note,
             'location_city'  => $location_city,
             'trainer'        => $trainer,
             'services'       => ($services === '-' || $services === '') ? 'Interaktive Gruppenübungen' : $services,
@@ -278,8 +278,14 @@ function seminar6_render($type) {
             $booking_button = '<a class="okrs-date-book" href="' . esc_url($e['booking_link']) . '" target="_blank" rel="noopener">Buchen</a>';
         }
 
-        $offer_html = ($e['offer_link'] !== '')
-            ? '<div class="okrs-date-offer"><a href="' . esc_url($e['offer_link']) . '" target="_blank" rel="noopener">Angebot anfragen</a></div>'
+        // Angebot-Button (weiß, Goldrand, zweizeilig) zwischen Details und Buchen
+        $offer_button = ($e['offer_link'] !== '')
+            ? '<a class="okrs-date-offer-btn" href="' . esc_url($e['offer_link']) . '" target="_blank" rel="noopener">Angebot<br>anfragen</a>'
+            : '';
+
+        // Zertifizierungs-Hinweis als unauffällige 2. Zeile beim Ort
+        $location_cert_html = ($e['cert_note'] !== '')
+            ? '<br>' . esc_html($e['cert_note'])
             : '';
 
         $note_html = $e['notes']
@@ -336,7 +342,8 @@ function seminar6_render($type) {
             'trainer'        => esc_html($e['trainer']),
             'services'       => esc_html($e['services']),
             'note_html'      => $note_html,
-            'offer_html'     => $offer_html,
+            'offer_button'   => $offer_button,
+            'location_cert_html' => $location_cert_html,
             'json_ld'        => wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
         );
 
