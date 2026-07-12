@@ -10,6 +10,32 @@
 
   ready(function () {
 
+    /* ---------- Sidebar-Position: Mobile vs. Desktop ----------
+       Desktop: .okrs-side ist die sticky rechte Grid-Spalte (letztes Kind
+       von .okrs-body-grid). Mobile (<=980px): die Box direkt ueber das
+       Sub-Menue (.okrs-secnav) haengen, statt ans Ende der Hauptspalte. */
+    (function () {
+      var grid = document.querySelector('.okrs-body-grid');
+      var side = grid && grid.querySelector(':scope > .okrs-side');
+      var main = grid && grid.children[0];
+      var secnav = main && main.querySelector(':scope > .okrs-secnav');
+      if (!grid || !side || !main || !secnav) return;
+      var mq = window.matchMedia('(max-width: 980px)');
+      function place(mobile) {
+        if (mobile) {
+          if (side.parentNode !== main || side.nextElementSibling !== secnav) {
+            main.insertBefore(side, secnav);
+          }
+        } else if (side.parentNode !== grid) {
+          grid.appendChild(side); // zurueck als rechte Sidebar-Spalte
+        }
+      }
+      place(mq.matches);
+      var onChange = function (e) { place(e.matches); };
+      if (mq.addEventListener) { mq.addEventListener('change', onChange); }
+      else { mq.addListener(onChange); }
+    })();
+
     /* ---------- Agenda-Tabs (Tag 1–3) ---------- */
     var agendaTabs = document.querySelectorAll('.okrs-agenda-tab');
     agendaTabs.forEach(function (tab) {

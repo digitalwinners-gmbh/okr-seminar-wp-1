@@ -690,11 +690,15 @@ body .wrapper_inner { overflow: clip !important; }
   .okrs-trainer-grid { grid-template-columns: 280px 1fr; }
 }
 @media (max-width: 980px) {
-  .okrs-body-grid { grid-template-columns: 1fr; gap: 28px; }
+  /* minmax(0,…) + min-width:0: Grid-Items duerfen unter ihre min-content
+     schrumpfen. Wichtig, weil okr-seminar.js die Sidebar (.okrs-side, enthaelt
+     das Awards-Carousel mit .okrs-award-slide: flex 0 0 100%) auf Mobile in die
+     Hauptspalte verschiebt (direkt ueber das Sub-Menue). Ohne das wuerde die
+     grosse min-content des Carousels die Spalte auf Desktop-Breite aufblaehen
+     und rechts abschneiden. */
+  .okrs-body-grid { grid-template-columns: minmax(0,1fr); gap: 28px; }
+  .okrs-body-grid > * { min-width: 0; }
   .okrs-side { position: static; min-width: 0; }
-  /* Sidebar (Tab-Box + Awards-Carousel) darf unter ihre min-content schrumpfen,
-     sonst erzwingt das Carousel (.okrs-award-slide: flex 0 0 100%) Desktop-Breite
-     und Tab-Box/Carousel werden rechts abgeschnitten. */
   .okrs-side-card, .okrs-side-tabs, .okrs-awards, .okrs-awards-viewport { min-width: 0; max-width: 100%; }
   .okrs-kf-grid { grid-template-columns: 1fr; }
   .okrs-about-grid { grid-template-columns: 1fr; gap: 30px; }
