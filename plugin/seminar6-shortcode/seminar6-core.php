@@ -182,7 +182,7 @@ function seminar6_collect($type) {
 
         // Buchungs-/Angebotslinks (wie v1)
         $price_net = seminar6_format_currency($price_net_float, $currency_symbol);
-        $price_gross = seminar6_format_currency($price_net_float * 1.19, '€') . ' € inkl. 19% USt.';
+        $price_gross = seminar6_format_currency($price_net_float * 1.19, '€') . ' inkl. 19% USt.';
         $param_preis = $price_net . ' zzgl. USt - bzw. ' . $price_gross;
         if ($discount > 0) $param_preis .= ' - inkl. EarlyBird-Rabatt von ' . $discount . ' %';
         if (strstr($seminar_code, '_ZUR')) $param_preis = $price_net . ' netto';
