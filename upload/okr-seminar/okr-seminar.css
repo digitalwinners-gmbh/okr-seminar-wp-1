@@ -698,7 +698,9 @@ body .wrapper_inner { overflow: clip !important; }
      und rechts abschneiden. */
   .okrs-body-grid { grid-template-columns: minmax(0,1fr); gap: 28px; }
   .okrs-body-grid > * { min-width: 0; }
-  .okrs-side { position: static; min-width: 0; }
+  /* margin-top: Abstand zwischen Stats-Grid und der eingehaengten Tabs/Preis-Box
+     (nur Mobile; auf Desktop ist .okrs-side die sticky Sidebar ohne diesen Abstand). */
+  .okrs-side { position: static; min-width: 0; margin-top: 24px; }
   .okrs-side-card, .okrs-side-tabs, .okrs-awards, .okrs-awards-viewport { min-width: 0; max-width: 100%; }
   .okrs-kf-grid { grid-template-columns: 1fr; }
   .okrs-about-grid { grid-template-columns: 1fr; gap: 30px; }
