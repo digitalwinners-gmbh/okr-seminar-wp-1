@@ -428,5 +428,27 @@ function seminar6_data_shortcode($atts) {
     return '<script>window.okrsSeminarData = ' . wp_json_encode($stats, JSON_UNESCAPED_UNICODE) . ';</script>';
 }
 
+/**
+ * [seminar6_options type="3-D-OKR" placeholder="Bitte auswählen ..."]
+ * → <option>-Liste für Formular-Dropdowns (z. B. Jotform-Quellcode):
+ *   erster Eintrag der Platzhalter (value="" → Pflichtfeld-Validierung
+ *   greift), danach alle zukünftigen Termine als "Termin, Ort",
+ *   nach Datum sortiert. Ausgebuchte Termine werden übersprungen.
+ */
+function seminar6_options_shortcode($atts) {
+    $atts = shortcode_atts(array(
+        'type' => '3-D-OKR',
+        'placeholder' => 'Bitte auswählen ...',
+    ), $atts);
+    $out = '<option value="">' . esc_html($atts['placeholder']) . '</option>';
+    foreach (seminar6_collect($atts['type']) as $e) {
+        if ($e['avail'] === 'ausgebucht') continue;
+        $label = $e['date'] . ', ' . $e['city'];
+        $out .= '<option value="' . esc_attr($label) . '">' . esc_html($label) . '</option>';
+    }
+    return $out;
+}
+
 add_shortcode('seminar6_info', 'seminar6_info_shortcode');
 add_shortcode('seminar6_data', 'seminar6_data_shortcode');
+add_shortcode('seminar6_options', 'seminar6_options_shortcode');
