@@ -691,7 +691,7 @@ body .wrapper_inner { overflow: clip !important; }
 }
 @media (max-width: 980px) {
   .okrs-body-grid { grid-template-columns: 1fr; gap: 28px; }
-  .okrs-side { position: static; order: -1; min-width: 0; }
+  .okrs-side { position: static; min-width: 0; }
   /* Sidebar (Tab-Box + Awards-Carousel) darf unter ihre min-content schrumpfen,
      sonst erzwingt das Carousel (.okrs-award-slide: flex 0 0 100%) Desktop-Breite
      und Tab-Box/Carousel werden rechts abgeschnitten. */
