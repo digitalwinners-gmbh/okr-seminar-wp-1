@@ -6,6 +6,7 @@ Baut die drei Danke-Seiten als WPBakery/Bridge-Shortcode-Dateien:
   src/danke/danke-anfrage.html  → page-danke-anfrage.txt
   src/danke/danke-inhouse.html  → page-danke-inhouse.txt
   src/danke/danke-kontakt.html  → page-danke-kontakt.txt
+  src/danke/danke-reservierung.html → page-danke-reservierung.txt
 
 WICHTIG: Der Inhalt kommt in [vc_column_text] (NICHT vc_raw_html), damit
 WordPress die [jotform-display]-Shortcodes ausführt. Damit wpautop das
@@ -55,6 +56,7 @@ for src_name, out_name in [
     ("danke-anfrage.html", "page-danke-anfrage.txt"),
     ("danke-inhouse.html", "page-danke-inhouse.txt"),
     ("danke-kontakt.html", "page-danke-kontakt.txt"),
+    ("danke-reservierung.html", "page-danke-reservierung.txt"),
 ]:
     html = (ROOT / "src" / "danke" / src_name).read_text(encoding="utf-8")
     content = (

@@ -121,11 +121,12 @@ print(f"OK: {out}")
 
 # ---- Danke-Seiten (Buchung / Angebot / Inhouse) ----
 # [jotform-display]-Shortcodes durch Beispielwerte ersetzen, Assets lokal.
-for name in ["danke-buchung", "danke-anfrage", "danke-inhouse", "danke-kontakt"]:
+for name in ["danke-buchung", "danke-anfrage", "danke-inhouse", "danke-kontakt", "danke-reservierung"]:
     dk = (ROOT / "src" / "danke" / f"{name}.html").read_text(encoding="utf-8")
     dk = (dk.replace('[jotform-display type="prename"]', "Anna")
             .replace('[jotform-display type="name"]', "Anna Muster")
             .replace('[jotform-display type="email"]', "anna@muster.de")
+            .replace('[jotform-display type="seminar"]', "14.09.2026, Live-Online")
             .replace(REMOTE + "/images/", "../upload/okr-seminar/images/"))
     page = f"""<!DOCTYPE html><html lang="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
