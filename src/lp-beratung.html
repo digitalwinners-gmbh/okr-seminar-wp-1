@@ -1,0 +1,380 @@
+<!-- ============================================================
+     OKR-Experten Landingpage Beratung (self-contained: CSS+HTML+JS)
+     Ohne Menue/Footer. OKR-Set-Karte 1:1 von der Startseite uebernommen
+     (Outcome-Toggle interaktiv, Quartal dynamisch).
+     Wird von build_landingpage.py als [vc_raw_html] in
+     page-landingpage-beratung.txt gepackt.
+     ============================================================ -->
+<div class="okrlp">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Newsreader:ital,wght@1,400;1,500&display=swap');
+
+/* WPBakery-Integration (Zeile bekommt el_class="okrlp-row") */
+.okrlp-row .vc_column-inner{padding:0 !important;}
+.okrlp-row .wpb_wrapper,.okrlp-row .wpb_raw_code,.okrlp-row .wpb_content_element{margin:0 !important;}
+
+.okrlp{
+  --ink:#17181A; --ink2:#222326;
+  --gold:#B8933B; --gold-deep:#9a7a30; --gold-soft:#e7d9b8;
+  --paper:#FAF8F3; --card:#ffffff; --line:#ECE6DA; --line2:#F0ECE2;
+  --body:#4a4f56; --muted:#9A9CA0;
+  font-family:'Archivo',system-ui,-apple-system,sans-serif;
+  color:var(--ink); background:var(--paper);
+  -webkit-font-smoothing:antialiased; line-height:1.5;
+}
+.okrlp *,.okrlp *::before,.okrlp *::after{box-sizing:border-box;}
+.okrlp-wrap{max-width:1240px; margin:0 auto; padding:64px 24px;}
+.okrlp-grid{display:grid; grid-template-columns:minmax(0,1fr) 540px; gap:60px; align-items:center;}
+.okrlp-kicker{font-size:11.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold);}
+.okrlp-h2{font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(28px,3.2vw,40px); line-height:1.1; letter-spacing:-.01em; margin:14px 0 0;}
+.okrlp-h2 em{font-family:'Newsreader',Georgia,serif; font-style:italic; font-weight:500; color:var(--gold);}
+
+/* ---------- Hero ---------- */
+.okrlp-badge{
+  display:inline-flex; align-items:center; gap:9px;
+  background:#f2ecdd; border:1px solid #e7ddc4;
+  color:var(--gold-deep); font-size:12.5px; font-weight:800;
+  letter-spacing:.06em; text-transform:uppercase;
+  padding:9px 16px; border-radius:999px;
+}
+.okrlp-badge::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--gold);}
+.okrlp-h1{
+  font-family:'Archivo',sans-serif; font-weight:800;
+  font-size:clamp(34px,4.6vw,54px); line-height:1.06;
+  letter-spacing:-.015em; margin:22px 0 0; color:var(--ink);
+}
+.okrlp-h1 em{font-family:'Newsreader',Georgia,serif; font-style:italic; font-weight:500; color:var(--gold);}
+.okrlp-lead{font-size:clamp(18px,2vw,21px); line-height:1.45; font-weight:700; color:#2c3036; margin:20px 0 0;}
+.okrlp-p{font-size:15.5px; line-height:1.62; color:var(--body); margin:16px 0 0; max-width:600px;}
+.okrlp-ctas{display:flex; flex-wrap:wrap; gap:14px; margin-top:28px;}
+.okrlp-btn{display:inline-flex; align-items:center; gap:10px; text-decoration:none; font-weight:700; font-size:15.5px; padding:16px 30px; border-radius:12px; cursor:pointer; transition:transform .15s, background .15s, box-shadow .15s; border:1px solid transparent;}
+.okrlp-btn--gold{background:var(--gold); color:#fff; box-shadow:0 12px 30px rgba(184,147,59,.35);}
+.okrlp-btn--gold:hover{background:var(--gold-deep); transform:translateY(-1px); color:#fff;}
+.okrlp-btn--ghost{background:#fff; color:var(--ink); border-color:#e2dccd;}
+.okrlp-btn--ghost:hover{border-color:var(--gold); color:var(--ink);}
+.okrlp-trust{margin-top:28px; display:flex; flex-direction:column; gap:10px;}
+.okrlp-trust-row{display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; font-size:13.5px; color:#5c616a; font-weight:600;}
+.okrlp-stars{color:var(--gold); letter-spacing:1px; font-size:13px;}
+.okrlp-trust-sep{color:#cfc8ba;}
+.okrlp-awards{display:flex; flex-wrap:wrap; gap:10px;}
+.okrlp-award{display:flex; align-items:center; gap:9px; background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px 14px; font-size:12.5px; color:var(--body); font-weight:600; line-height:1.3;}
+.okrlp-award b{color:var(--ink);}
+.okrlp-award svg{flex-shrink:0;}
+.okrlp-trust-cities{font-size:12.5px; color:var(--muted); font-weight:600;}
+
+/* ---------- OKR-Set-Karte (1:1 von der Startseite) ---------- */
+.okrst-cardwrap{position:relative;}
+.okrst-card{
+  background:var(--card); border:1px solid var(--line);
+  border-radius:24px; box-shadow:0 30px 70px rgba(23,24,26,.14);
+  padding:28px 30px 26px; position:relative; z-index:1;
+}
+.okrst-card-head{display:flex; justify-content:space-between; align-items:baseline; gap:12px;}
+.okrst-obj-label,.okrst-set{font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--muted);}
+.okrst-set b{color:var(--gold); font-weight:800;}
+.okrst-obj-title{font-family:'Archivo',sans-serif; font-weight:800; font-size:21px; line-height:1.25; color:var(--ink); margin:12px 0 0;}
+.okrst-obj-sub{font-size:13px; line-height:1.5; color:var(--muted); margin:7px 0 0;}
+.okrst-sep{height:1px; background:var(--line2); margin:20px 0;}
+.okrst-kr{margin-top:18px;}
+.okrst-kr:first-of-type{margin-top:0;}
+.okrst-kr-top{display:flex; align-items:flex-start; gap:12px;}
+.okrst-kr-label{flex:0 0 auto; color:var(--gold); font-weight:800; font-size:11px; letter-spacing:.06em; padding-top:2px; width:30px;}
+.okrst-kr-text{flex:1; font-size:13.5px; line-height:1.4; color:#2f333a; font-weight:600;}
+.okrst-kr-pct{flex:0 0 auto; color:var(--gold); font-weight:800; font-size:14px; font-variant-numeric:tabular-nums;}
+.okrst-track{height:7px; border-radius:99px; background:#efe9dc; margin:9px 0 0 42px; overflow:hidden;}
+.okrst-fill{height:100%; border-radius:99px; background:linear-gradient(90deg,var(--gold),#cca850); width:0; transition:width 1s cubic-bezier(.4,0,.2,1);}
+.okrst-outcome{
+  display:block; overflow:hidden; max-height:0; opacity:0;
+  font-size:12.5px; line-height:1.45; color:var(--muted);
+  transition:max-height .4s ease, opacity .35s ease, margin .4s ease;
+}
+.okrst-kr .okrst-outcome{margin:0 0 0 42px; max-height:0;}
+.okrst-card.is-outcome .okrst-kr .okrst-outcome{max-height:80px; opacity:1; margin-top:6px;}
+.okrst-obj-sub .okrst-outcome{display:inline; max-height:none; opacity:0; transition:opacity .35s ease;}
+.okrst-card.is-outcome .okrst-obj-sub .okrst-outcome{opacity:1;}
+.okrst-card-foot{display:flex; align-items:center; justify-content:flex-end; gap:11px; margin-top:22px; padding-top:16px; border-top:1px solid var(--line2);}
+.okrst-foot-label{font-size:12.5px; font-weight:700; color:var(--muted);}
+.okrst-switch{position:relative; width:44px; height:26px; border-radius:99px; background:#e2ddd0; border:none; cursor:pointer; padding:0; transition:background .25s; flex:0 0 auto;}
+.okrst-switch::after{content:""; position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:#fff; box-shadow:0 2px 5px rgba(0,0,0,.2); transition:transform .25s;}
+.okrst-card.is-outcome .okrst-switch{background:var(--gold);}
+.okrst-card.is-outcome .okrst-switch::after{transform:translateX(18px);}
+.okrst-card.is-outcome .okrst-foot-label{color:var(--gold-deep);}
+.okrst-badge300{
+  position:absolute; left:-14px; bottom:-26px; z-index:2;
+  background:var(--ink); color:#fff; border-radius:16px;
+  padding:16px 22px; box-shadow:0 20px 40px rgba(23,24,26,.28); max-width:230px;
+}
+.okrst-badge300 b{display:block; font-family:'Archivo',sans-serif; font-weight:800; font-size:30px; line-height:1;}
+.okrst-badge300 span{display:block; font-size:12.5px; color:var(--gold-soft); margin-top:5px; line-height:1.35;}
+
+/* ---------- Problem (dunkel) ---------- */
+.okrlp-problem{background:var(--ink); color:#FAF8F3;}
+.okrlp-problem .okrlp-h2{color:#FAF8F3;}
+.okrlp-problem-grid{display:grid; grid-template-columns:minmax(0,1fr) 1.05fr; gap:56px; align-items:center;}
+.okrlp-problem-p{font-size:15px; line-height:1.6; color:rgba(250,248,243,.72); margin:16px 0 0; max-width:520px;}
+.okrlp-problem-list{display:grid; gap:12px;}
+.okrlp-problem-item{
+  display:flex; align-items:center; gap:14px;
+  background:rgba(250,248,243,.05); border:1px solid rgba(250,248,243,.09);
+  border-radius:14px; padding:16px 18px;
+  font-size:14.5px; font-weight:600; color:#f0ece2;
+}
+.okrlp-x{flex:0 0 auto; width:30px; height:30px; border-radius:9px; display:flex; align-items:center; justify-content:center; background:rgba(184,147,59,.14); border:1px solid rgba(184,147,59,.35); color:var(--gold); font-size:13px; font-weight:800;}
+
+/* ---------- Angebote ---------- */
+.okrlp-angebote-head{text-align:center; max-width:640px; margin:0 auto;}
+.okrlp-angebote-head p{font-size:15.5px; line-height:1.6; color:var(--body); margin:14px 0 0;}
+.okrlp-kern{
+  display:flex; gap:36px; align-items:center; justify-content:space-between;
+  background:#fff; border:1.5px solid #d9c48a; border-radius:20px;
+  padding:30px 34px; margin-top:40px;
+  box-shadow:0 18px 50px rgba(23,24,26,.07);
+}
+.okrlp-kern-pill{display:inline-block; background:#f2ecdd; border:1px solid #e7ddc4; color:var(--gold-deep); font-size:10.5px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; padding:6px 12px; border-radius:999px;}
+.okrlp-kern h3{font-family:'Archivo',sans-serif; font-weight:800; font-size:24px; margin:12px 0 0; color:var(--ink);}
+.okrlp-kern-p{font-size:14.5px; line-height:1.6; color:var(--body); margin:10px 0 0; max-width:640px;}
+.okrlp-kern-ctas{display:flex; flex-direction:column; gap:10px; flex:0 0 auto;}
+.okrlp-kern-ctas .okrlp-btn{justify-content:center; font-size:14.5px; padding:14px 24px;}
+.okrlp-cards{display:grid; grid-template-columns:1fr 1fr 1.9fr; gap:18px; margin-top:18px;}
+.okrlp-card{background:#fff; border:1px solid var(--line); border-radius:20px; padding:24px 22px; display:flex; flex-direction:column; align-items:flex-start; box-shadow:0 14px 40px rgba(23,24,26,.05);}
+.okrlp-card-icon{width:40px; height:40px; border-radius:12px; background:#f2ecdd; display:flex; align-items:center; justify-content:center; color:var(--gold);}
+.okrlp-card h4{font-family:'Archivo',sans-serif; font-weight:800; font-size:16.5px; color:var(--ink); margin:16px 0 0;}
+.okrlp-card p{font-size:13px; line-height:1.5; color:var(--body); margin:7px 0 0;}
+.okrlp-card-link{margin-top:auto; padding-top:16px; font-size:13.5px; font-weight:700; color:var(--gold) !important; text-decoration:none !important;}
+.okrlp-card-link:hover{color:var(--gold-deep) !important;}
+
+/* ---------- Ansatz (weiss) ---------- */
+.okrlp-ansatz{background:#fff;}
+.okrlp-ansatz-grid{display:grid; grid-template-columns:minmax(0,1fr) 1.05fr; gap:56px; align-items:center;}
+.okrlp-ansatz-p{font-size:15px; line-height:1.62; color:var(--body); margin:16px 0 0; max-width:540px;}
+.okrlp-ansatz-p b{color:var(--ink);}
+.okrlp-ansatz-list{display:grid; gap:12px;}
+.okrlp-ansatz-item{
+  display:flex; align-items:flex-start; gap:14px;
+  background:#fff; border:1px solid var(--line); border-radius:14px; padding:15px 18px;
+  box-shadow:0 10px 30px rgba(23,24,26,.05);
+}
+.okrlp-check{flex:0 0 auto; width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center; background:#f2ecdd; color:var(--gold); font-size:13px; font-weight:800; margin-top:2px;}
+.okrlp-ansatz-item h4{font-family:'Archivo',sans-serif; font-weight:800; font-size:14.5px; color:var(--ink); margin:0;}
+.okrlp-ansatz-item p{font-size:13px; line-height:1.5; color:var(--body); margin:4px 0 0;}
+
+/* ---------- Schluss-CTA ---------- */
+.okrlp-cta{text-align:center;}
+.okrlp-cta .okrlp-h2{margin-top:0;}
+.okrlp-cta p{font-size:15.5px; line-height:1.6; color:var(--body); margin:16px auto 0; max-width:640px;}
+.okrlp-cta .okrlp-btn{margin-top:28px;}
+
+/* ---------- Responsive ---------- */
+@media (max-width:980px){
+  .okrlp-wrap{padding:44px 20px;}
+  .okrlp-grid,.okrlp-problem-grid,.okrlp-ansatz-grid{grid-template-columns:1fr; gap:40px;}
+  .okrst-cardwrap{max-width:540px;}
+  .okrst-badge300{left:auto; right:16px;}
+  .okrlp-kern{flex-direction:column; align-items:flex-start;}
+  .okrlp-kern-ctas{flex-direction:row; flex-wrap:wrap;}
+  .okrlp-cards{grid-template-columns:1fr 1fr;}
+  .okrlp-cards .okrlp-card:last-child{grid-column:1 / -1;}
+}
+@media (max-width:640px){
+  .okrlp-cards{grid-template-columns:1fr;}
+  .okrlp-cards .okrlp-card:last-child{grid-column:auto;}
+  .okrlp-ctas .okrlp-btn,.okrlp-kern-ctas .okrlp-btn{flex:1 1 100%; justify-content:center;}
+}
+@media (max-width:520px){
+  .okrst-card{padding:22px 20px 22px;}
+  .okrst-badge300{position:static; margin:18px 0 0; max-width:none;}
+}
+</style>
+
+<!-- ================= HERO ================= -->
+<section class="okrlp-wrap">
+  <div class="okrlp-grid">
+    <div>
+      <span class="okrlp-badge">OKR-Beratung · Coaching · Training</span>
+      <h1 class="okrlp-h1">Strategie wirksam umsetzen. Mehr <em>Fokus</em> im Tagesgeschäft.</h1>
+      <p class="okrlp-lead">Viele Organisationen haben eine klare Strategie. Doch im Alltag geht der Fokus verloren.</p>
+      <p class="okrlp-p">Unsere OKR-Beratung bringt Strategie und operative Arbeit zusammen: messbare Wirkungsziele, klare Prioritäten und ein Rhythmus, der Umsetzung zur Gewohnheit macht.</p>
+      <div class="okrlp-ctas">
+        <a class="okrlp-btn okrlp-btn--gold" href="https://okrexperten.de/kontakt/">Kostenloses Erstgespräch vereinbaren <span aria-hidden="true">→</span></a>
+        <a class="okrlp-btn okrlp-btn--ghost" href="https://okrexperten.de/okr-angebote/">Unsere Angebote</a>
+      </div>
+      <div class="okrlp-trust">
+        <div class="okrlp-trust-row">
+          <span class="okrlp-stars">★★★★★</span> Google <b>(71)</b>
+          <span class="okrlp-trust-sep">–</span>
+          <span class="okrlp-stars">★★★★★</span> ProvenExpert <b>(117)</b>
+        </div>
+        <div class="okrlp-awards">
+          <span class="okrlp-award"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8933B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 0 12 0V3H6v6Z"/><path d="M6 5H3v2a4 4 0 0 0 3 3.87M18 5h3v2a4 4 0 0 1-3 3.87"/><path d="M12 15v3m-4 3h8m-6-3h4"/></svg><span><b>Best of Consulting</b> 2025 · WirtschaftsWoche</span></span>
+          <span class="okrlp-award"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8933B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 0 12 0V3H6v6Z"/><path d="M6 5H3v2a4 4 0 0 0 3 3.87M18 5h3v2a4 4 0 0 1-3 3.87"/><path d="M12 15v3m-4 3h8m-6-3h4"/></svg><span><b>Best of Consulting</b> 2023 · WirtschaftsWoche</span></span>
+        </div>
+        <div class="okrlp-trust-cities">Berlin · Frankfurt a.&nbsp;M. · München · Wien · Zürich</div>
+      </div>
+    </div>
+
+    <!-- OKR-Set-Karte (1:1 Startseite: interaktiv + dynamisches Quartal) -->
+    <div class="okrst-cardwrap">
+      <div class="okrst-card" id="okrst-card">
+        <div class="okrst-card-head">
+          <span class="okrst-obj-label">Objective</span>
+          <span class="okrst-set">OKR-Set · <b id="okrst-quarter">Q3 2026</b></span>
+        </div>
+        <h3 class="okrst-obj-title">Marktführerschaft im DACH-Raum ausgebaut,</h3>
+        <p class="okrst-obj-sub">indem wir KI in unsere Produkte und Services integriert haben,<span class="okrst-outcome"> damit unsere Kunden uns als Innovationsführer wählen und wir dem reinen Preiswettbewerb entwachsen.</span></p>
+        <div class="okrst-sep"></div>
+        <div class="okrst-kr">
+          <div class="okrst-kr-top">
+            <span class="okrst-kr-label">KR1</span>
+            <span class="okrst-kr-text">Umsatzanteil aus KI-integrierten Produkten von 12&nbsp;% auf 35&nbsp;% gesteigert,</span>
+            <span class="okrst-kr-pct">65%</span>
+          </div>
+          <div class="okrst-outcome">damit unser Wachstum aus dem entsteht, was uns vom Wettbewerb unterscheidet.</div>
+          <div class="okrst-track"><div class="okrst-fill" data-pct="65"></div></div>
+        </div>
+        <div class="okrst-kr">
+          <div class="okrst-kr-top">
+            <span class="okrst-kr-label">KR2</span>
+            <span class="okrst-kr-text">eNPS von +14 auf +40 gesteigert,</span>
+            <span class="okrst-kr-pct">72%</span>
+          </div>
+          <div class="okrst-outcome">damit wir Fachleute halten und gewinnen, die unsere Marktführerschaft mit Kompetenz und Engagement tragen.</div>
+          <div class="okrst-track"><div class="okrst-fill" data-pct="72"></div></div>
+        </div>
+        <div class="okrst-kr">
+          <div class="okrst-kr-top">
+            <span class="okrst-kr-label">KR3</span>
+            <span class="okrst-kr-text">Gewinnquote in Neukunden-Angeboten von 22&nbsp;% auf 40&nbsp;% gesteigert,</span>
+            <span class="okrst-kr-pct">51%</span>
+          </div>
+          <div class="okrst-outcome">damit wir mit gleichem Vertriebsaufwand mehr Neukunden gewinnen und effizienter wachsen.</div>
+          <div class="okrst-track"><div class="okrst-fill" data-pct="51"></div></div>
+        </div>
+        <div class="okrst-card-foot">
+          <span class="okrst-foot-label">Outcome</span>
+          <button type="button" class="okrst-switch" id="okrst-switch" role="switch" aria-checked="false" aria-label="Outcome-Begründungen anzeigen"></button>
+        </div>
+      </div>
+      <div class="okrst-badge300"><b>300+</b><span>Unternehmen &amp; Organisationen begleitet</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DAS PROBLEM (dunkel) ================= -->
+<section class="okrlp-problem">
+  <div class="okrlp-wrap">
+    <div class="okrlp-problem-grid">
+      <div>
+        <span class="okrlp-kicker">Das Problem</span>
+        <h2 class="okrlp-h2">Warum Strategien im Alltag an <em>Wirkung</em> verlieren</h2>
+        <p class="okrlp-problem-p">9 von 10 Unternehmen scheitern bei der Strategieumsetzung. Das Ergebnis: Strategie wird formuliert – aber im Alltag nur teilweise umgesetzt.</p>
+      </div>
+      <div class="okrlp-problem-list">
+        <div class="okrlp-problem-item"><span class="okrlp-x">✕</span>Strategische Initiativen kommen im Tagesgeschäft zu kurz</div>
+        <div class="okrlp-problem-item"><span class="okrlp-x">✕</span>Prioritäten ändern sich ständig</div>
+        <div class="okrlp-problem-item"><span class="okrlp-x">✕</span>Teams arbeiten viel – aber nicht immer am Wesentlichen</div>
+        <div class="okrlp-problem-item"><span class="okrlp-x">✕</span>Strategie bleibt von der operativen Arbeit getrennt</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UNSERE ANGEBOTE ================= -->
+<section id="angebote">
+  <div class="okrlp-wrap">
+    <div class="okrlp-angebote-head">
+      <span class="okrlp-kicker">Unsere Angebote</span>
+      <h2 class="okrlp-h2">Einstiegsmöglichkeiten</h2>
+      <p>Vier Wege in die wirksame Zielarbeit – von der umfassenden Begleitung bis zum kompakten Einstieg.</p>
+    </div>
+
+    <div class="okrlp-kern">
+      <div>
+        <span class="okrlp-kern-pill">Unser Kernangebot</span>
+        <h3>OKR Beratung</h3>
+        <p class="okrlp-kern-p">Einführung und Implementierung: Wir begleiten Sie von der Vorbereitung über den ersten Zyklus bis zur skalierten Umsetzung über alle Ebenen und Teams – inklusive Coaching Ihrer Führungskräfte und OKR-Verantwortlichen.</p>
+      </div>
+      <div class="okrlp-kern-ctas">
+        <a class="okrlp-btn okrlp-btn--gold" href="https://okrexperten.de/kontakt/">Kostenloses Erstgespräch vereinbaren <span aria-hidden="true">→</span></a>
+        <a class="okrlp-btn okrlp-btn--ghost" href="https://okrexperten.de/okr-beratung/">Infos zur Beratung</a>
+      </div>
+    </div>
+
+    <div class="okrlp-cards">
+      <div class="okrlp-card">
+        <span class="okrlp-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg></span>
+        <h4>OKR Quick Start Workshop</h4>
+        <p>Einstieg für Geschäftsführung</p>
+        <a class="okrlp-card-link" href="https://okrexperten.de/okr-workshop/okr-einfuehrungs-workshop/">Workshop entdecken&nbsp;→</a>
+      </div>
+      <div class="okrlp-card">
+        <span class="okrlp-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        <h4>OKR für Führungskräfte</h4>
+        <p>2 × 4 Stunden | Remote Seminar</p>
+        <a class="okrlp-card-link" href="https://okrexperten.de/okr-training/okr-seminar/okr-seminar-fuehrungskraefte/">Seminar buchen&nbsp;→</a>
+      </div>
+      <div class="okrlp-card">
+        <span class="okrlp-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/></svg></span>
+        <h4>Ausbildung zum OKR Coach / Master</h4>
+        <p>Für den Aufbau interner OKR-Expertise: 3-tägiges Zertifizierungsseminar · Präsenz · Remote · Inhouse</p>
+        <a class="okrlp-card-link" href="https://okrexperten.de/okr-training/okr-seminar/okr-seminar-okr-coach-master/">Seminar buchen&nbsp;→</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DER ANSATZ (weiss) ================= -->
+<section class="okrlp-ansatz">
+  <div class="okrlp-wrap">
+    <div class="okrlp-ansatz-grid">
+      <div>
+        <span class="okrlp-kicker">Der Ansatz</span>
+        <h2 class="okrlp-h2">Was erfolgreiche Organisationen anders machen</h2>
+        <p class="okrlp-ansatz-p">Organisationen, denen Strategieumsetzung gelingt, verbinden drei Dinge systematisch miteinander: klare strategische Prioritäten, Transparenz über Fortschritt und Wirkung, regelmäßige Abstimmung zwischen Strategie und operativer Arbeit.</p>
+        <p class="okrlp-ansatz-p">Ein Ansatz, der genau dafür entwickelt wurde, ist <b>OKR (Objectives &amp; Key Results)</b> – erfunden von Andy Grove (Intel), weiterentwickelt von Google.</p>
+      </div>
+      <div class="okrlp-ansatz-list">
+        <div class="okrlp-ansatz-item"><span class="okrlp-check">✓</span><div><h4>Strategische Ziele klar priorisieren</h4><p>Wenige Ziele mit maximaler Wirkung statt langer Wunschlisten.</p></div></div>
+        <div class="okrlp-ansatz-item"><span class="okrlp-check">✓</span><div><h4>Verantwortung sichtbar machen</h4><p>Jedes Team kennt seinen Beitrag zur Strategie.</p></div></div>
+        <div class="okrlp-ansatz-item"><span class="okrlp-check">✓</span><div><h4>Fortschritt regelmäßig überprüfen</h4><p>Messbare Key Results statt Bauchgefühl.</p></div></div>
+        <div class="okrlp-ansatz-item"><span class="okrlp-check">✓</span><div><h4>Teams auf das Wichtigste ausrichten</h4><p>Mehr Fokus. Klare Prioritäten. Konsequente Umsetzung.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SCHLUSS-CTA ================= -->
+<section class="okrlp-cta">
+  <div class="okrlp-wrap">
+    <h2 class="okrlp-h2">Sprechen wir über Ihre <em>Strategieumsetzung</em>.</h2>
+    <p>Im kostenlosen Erstgespräch klären wir, welcher Einstieg für Ihre Organisation der richtige ist.</p>
+    <a class="okrlp-btn okrlp-btn--gold" href="https://okrexperten.de/kontakt/">Kostenloses Erstgespräch vereinbaren <span aria-hidden="true">→</span></a>
+  </div>
+</section>
+
+<script>
+(function(){
+  var root = document.querySelector('.okrlp');
+  if(!root) return;
+
+  /* 1) Dynamisches Quartal: immer aktuelles Quartal + Jahr (z. B. Q3 2026) */
+  var q = root.querySelector('#okrst-quarter');
+  if(q){ var d=new Date(); q.textContent = 'Q' + (Math.floor(d.getMonth()/3)+1) + ' ' + d.getFullYear(); }
+
+  /* 2) Outcome-Toggle: blendet die Wirkungslogik ein/aus */
+  var card = root.querySelector('#okrst-card');
+  var sw = root.querySelector('#okrst-switch');
+  if(card && sw){
+    sw.addEventListener('click', function(){
+      var on = card.classList.toggle('is-outcome');
+      sw.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+  }
+
+  /* 3) Fortschrittsbalken beim Erscheinen animieren */
+  function fill(){ root.querySelectorAll('.okrst-fill').forEach(function(f){ f.style.width = (f.getAttribute('data-pct')||0) + '%'; }); }
+  /* Karte liegt above the fold: nach dem Laden animieren (robuster als IntersectionObserver) */
+  if(document.readyState === 'complete'){ setTimeout(fill, 350); }
+  else { window.addEventListener('load', function(){ setTimeout(fill, 350); }); }
+})();
+</script>
+</div>

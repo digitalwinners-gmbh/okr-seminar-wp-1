@@ -224,10 +224,9 @@
 
   /* 3) Fortschrittsbalken beim Erscheinen animieren */
   function fill(){ root.querySelectorAll('.okrst-fill').forEach(function(f){ f.style.width = (f.getAttribute('data-pct')||0) + '%'; }); }
-  if('IntersectionObserver' in window && card){
-    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ fill(); io.disconnect(); } }); }, {threshold:.3});
-    io.observe(card);
-  } else { setTimeout(fill, 300); }
+  /* Karte liegt above the fold: nach dem Laden animieren (robuster als IntersectionObserver) */
+  if(document.readyState === 'complete'){ setTimeout(fill, 350); }
+  else { window.addEventListener('load', function(){ setTimeout(fill, 350); }); }
 })();
 </script>
 </div>
