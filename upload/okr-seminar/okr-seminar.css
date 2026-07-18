@@ -405,8 +405,10 @@ body .wrapper_inner { overflow: clip !important; }
 .okrs-special-banner {
   background: rgba(217,183,92,.12); border: 1px solid rgba(217,183,92,.32);
   border-radius: 12px; padding: 15px 20px; margin-top: 28px;
-  display: flex; align-items: center; gap: 13px;
+  display: flex; align-items: center; flex-wrap: wrap; gap: 13px 26px;
 }
+.okrs-special-banner .okrs-special-item { flex: 1 1 340px; min-width: 300px; display: flex; align-items: center; gap: 13px; }
+@media (max-width: 700px) { .okrs-special-banner .okrs-special-item { flex-basis: 100%; min-width: 0; } }
 .okrs-special-banner .okrs-special-chip {
   flex-shrink: 0; width: 34px; height: 34px; border-radius: 9px; background: var(--gold-bright);
   color: var(--ink); display: flex; align-items: center; justify-content: center;
