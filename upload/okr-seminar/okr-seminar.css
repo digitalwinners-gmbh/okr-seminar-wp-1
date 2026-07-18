@@ -452,6 +452,8 @@ body .wrapper_inner { overflow: clip !important; }
 }
 .okrs-date-row--wenige .okrs-date-avail { color: #8a6c2b; background: #fbe6c6; }
 .okrs-date-row--ausgebucht .okrs-date-avail { color: #a3322a; background: #f6dada; }
+/* "Verfügbar"-Pill ausblenden; "Wenige Plätze" & "Ausgebucht" bleiben sichtbar */
+.okrs-date-row--verfuegbar .okrs-date-avail { display: none; }
 .okrs-date-special {
   display: inline-flex; align-items: center; gap: 5px;
   background: #dcf0e2; color: #1d7a44; font-size: 11px; font-weight: 800;
