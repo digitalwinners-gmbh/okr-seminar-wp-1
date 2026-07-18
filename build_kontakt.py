@@ -30,7 +30,7 @@ for src_name, out_name, el_class in PAGES:
         '[vc_row css_animation="" row_type="row" use_row_as_full_screen_section="no" '
         'type="full_width" angled_section="no" text_align="left" '
         'background_image_as_pattern="without_pattern" z_index="" '
-        f'background_color="#FAF8F3" el_class="{el_class}"]'
+        f'background_color="#f9f8f4" el_class="{el_class}"]'
         f"[vc_column]{raw_html(html)}[/vc_column][/vc_row]"
     )
     out = ROOT / out_name
