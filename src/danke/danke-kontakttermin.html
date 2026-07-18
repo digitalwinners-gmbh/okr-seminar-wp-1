@@ -64,9 +64,8 @@
     var p = new URLSearchParams(window.location.search);
     var full = (p.get('invitee_full_name') || '').trim();
     var email = (p.get('invitee_email') || '').trim();
-    var first = full.split(/\s+/)[0] || '';
     var nameEl = document.getElementById('okrs-dk-name');
-    if(nameEl && first){ nameEl.textContent = ', ' + first; }
+    if(nameEl && full){ nameEl.textContent = ', ' + full; }
     if(email){
       var els = document.querySelectorAll('.okrs-dk-email');
       for(var i=0;i<els.length;i++){ els[i].textContent = email; }
