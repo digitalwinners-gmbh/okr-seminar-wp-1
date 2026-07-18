@@ -1,0 +1,136 @@
+<!-- ============================================================
+     OKR-Experten Kontakt (self-contained CSS+HTML+JS)
+     Ohne Menue/Footer. Calendly-Inline-Embed (digitalwinners/okrberatung).
+     Wird von build_kontakt.py als [vc_raw_html] in page-kontakt.txt gepackt.
+     ============================================================ -->
+<div class="okrk">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Newsreader:ital,wght@1,400;1,500&display=swap');
+.okrk-row .vc_column-inner{padding:0 !important;}
+.okrk-row .wpb_wrapper,.okrk-row .wpb_raw_code,.okrk-row .wpb_content_element{margin:0 !important;}
+.okrk{
+  --ink:#17181A; --gold:#B8933B; --gold-deep:#9a7a30; --gold-soft:#e7d9b8;
+  --paper:#FAF8F3; --card:#fff; --line:#ECE6DA; --line2:#F0ECE2; --body:#4a4f56; --muted:#9A9CA0;
+  font-family:'Archivo',system-ui,-apple-system,sans-serif; color:var(--ink); background:var(--paper);
+  -webkit-font-smoothing:antialiased; line-height:1.5;
+}
+.okrk *,.okrk *::before,.okrk *::after{box-sizing:border-box;}
+.okrk-wrap{max-width:1240px; margin:0 auto; padding:60px 24px;}
+.okrk-kicker{font-size:11.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold);}
+.okrk-badge{display:inline-flex; align-items:center; gap:9px; background:#f2ecdd; border:1px solid #e7ddc4; color:var(--gold-deep); font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:8px 15px; border-radius:999px;}
+.okrk-badge::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--gold);}
+.okrk-h1{font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(32px,4.4vw,52px); line-height:1.06; letter-spacing:-.015em; margin:20px 0 0; color:var(--ink);}
+.okrk-h1 em{font-family:'Newsreader',Georgia,serif; font-style:italic; font-weight:500; color:var(--gold);}
+.okrk-lead{font-size:18px; line-height:1.5; font-weight:600; color:#2c3036; margin:18px 0 0; max-width:720px;}
+.okrk-p{font-size:15px; line-height:1.62; color:var(--body); margin:14px 0 0; max-width:720px;}
+.okrk-note{font-size:12.5px; color:var(--muted); margin:22px 0 0;}
+.okrk-note a{color:var(--gold) !important; font-weight:700; text-decoration:none !important;}
+
+.okrk-grid{display:grid; grid-template-columns:minmax(0,1fr) 400px; gap:36px; align-items:start; margin-top:20px;}
+
+/* Kalender-Karte */
+.okrk-calcard{background:#fff; border:1px solid var(--line); border-radius:24px; box-shadow:0 24px 60px rgba(23,24,26,.10); padding:22px 24px; overflow:hidden;}
+.okrk-calhead{display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:16px; border-bottom:1px solid var(--line2); margin-bottom:8px;}
+.okrk-calhead .okrk-kicker{display:block;}
+.okrk-calhead h2{font-family:'Archivo',sans-serif; font-weight:800; font-size:19px; margin:6px 0 0; color:var(--ink);}
+.okrk-calhead svg{flex:0 0 auto; color:var(--gold);}
+.okrk-cal{min-width:280px; height:760px;}
+
+/* Sidebar */
+.okrk-side{display:flex; flex-direction:column; gap:20px;}
+.okrk-dark{background:var(--ink); color:#f4efe4; border-radius:20px; padding:26px 26px 28px; box-shadow:0 24px 60px rgba(23,24,26,.20);}
+.okrk-kicker-bright{font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-soft);}
+.okrk-person{display:flex; align-items:center; gap:14px; margin-top:16px;}
+.okrk-person img{width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid rgba(217,183,92,.5);}
+.okrk-person-name{font-family:'Archivo',sans-serif; font-weight:800; font-size:18px; color:#fff;}
+.okrk-person-role{font-size:13px; color:#a89f8c; margin-top:2px; line-height:1.35;}
+.okrk-contact{display:flex; flex-direction:column; gap:10px; margin-top:20px;}
+.okrk-cbtn{display:flex; align-items:center; gap:12px; background:rgba(244,239,228,.06); border:1px solid rgba(244,239,228,.12); border-radius:12px; padding:13px 16px; text-decoration:none !important; color:#f4efe4 !important; font-weight:700; font-size:14px; transition:background .2s; word-break:break-word;}
+.okrk-cbtn:hover{background:rgba(244,239,228,.11);}
+.okrk-cbtn svg{flex-shrink:0; color:var(--gold-soft);}
+
+.okrk-plate{background:#fff; border:1px solid var(--line); border-radius:20px; padding:24px 26px; box-shadow:0 16px 44px rgba(23,24,26,.06);}
+.okrk-plate .okrk-kicker{margin-bottom:14px; display:block;}
+.okrk-tel-item{display:flex; align-items:center; gap:12px; font-size:15px; font-weight:700; color:var(--ink); padding:9px 0;}
+.okrk-tel-item a{color:var(--ink) !important; text-decoration:none !important;}
+.okrk-tel-item a:hover{color:var(--gold) !important;}
+.okrk-flag{font-size:18px; flex:0 0 auto; line-height:1;}
+.okrk-plate p{font-size:14px; line-height:1.55; color:var(--body); margin:0 0 16px;}
+.okrk-btn{display:inline-flex; align-items:center; gap:9px; background:var(--ink); color:#fff !important; text-decoration:none !important; font-weight:700; font-size:14.5px; padding:13px 22px; border-radius:11px; transition:background .2s;}
+.okrk-btn:hover{background:#000;}
+
+.okrk-stars-row{display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; font-size:13.5px; color:#5c616a; font-weight:600; padding:2px 4px;}
+.okrk-stars{color:var(--gold); letter-spacing:1px; font-size:13px;}
+.okrk-stars-row b{color:var(--ink);}
+.okrk-sep{color:#cfc8ba;}
+
+@media (max-width:900px){
+  .okrk-grid{grid-template-columns:1fr; gap:28px;}
+}
+@media (max-width:520px){
+  .okrk-wrap{padding:44px 18px;}
+  .okrk-cal{height:680px;}
+}
+</style>
+
+<section class="okrk-wrap">
+  <div class="okrk-head">
+    <span class="okrk-badge">Kontakt</span>
+    <h1 class="okrk-h1">Kostenloses und unverbindliches <em>Erstgespräch</em></h1>
+    <p class="okrk-lead">Wir freuen uns darauf, mit Ihnen ins Gespräch zu kommen und Ihre Fragen zu klären.</p>
+    <p class="okrk-p">Egal ob es um eine OKR-Einführung, Skalierung oder Optimierung, eine OKR-Beratung, ein Coaching oder um unsere Schulungen geht – wir sind für Sie da. Wählen Sie direkt im Terminkalender einen freien Termin: Telefongespräch oder Video-Call via Teams oder Zoom, Sie entscheiden.</p>
+    <p class="okrk-note">Falls der Kalender nicht korrekt angezeigt wird, <a href="https://calendly.com/digitalwinners/okrberatung" target="_blank" rel="noopener">klicken Sie hier</a>.</p>
+  </div>
+
+  <div class="okrk-grid">
+    <div class="okrk-calcard">
+      <div class="okrk-calhead">
+        <div>
+          <span class="okrk-kicker">Terminkalender</span>
+          <h2>Wählen Sie Ihren Wunschtermin</h2>
+        </div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      </div>
+      <div class="calendly-inline-widget okrk-cal" data-url="https://calendly.com/digitalwinners/okrberatung"></div>
+    </div>
+
+    <aside class="okrk-side">
+      <div class="okrk-dark">
+        <span class="okrk-kicker-bright">Haben Sie Fragen?</span>
+        <div class="okrk-person">
+          <img src="https://okrexperten.de/wp-content/uploads/okr-seminar/images/annalena-klippel.jpg" alt="Annalena Klippel">
+          <div>
+            <div class="okrk-person-name">Annalena Klippel</div>
+            <div class="okrk-person-role">Rufen Sie mich einfach an oder schreiben Sie mir eine E-Mail.</div>
+          </div>
+        </div>
+        <div class="okrk-contact">
+          <a class="okrk-cbtn" href="tel:+4989215295299"><svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2.5h3l1.4 3.8-2 1.4a10.5 10.5 0 0 0 4 4l1.4-2 3.7 1.4v3a1.5 1.5 0 0 1-1.6 1.5C7.6 15.2 2.8 10.4 2.4 4.1A1.5 1.5 0 0 1 4 2.5Z"/></svg>+49 89 21 52 952 – 99</a>
+          <a class="okrk-cbtn" href="mailto:annalena.klippel@digitalwinners.net"><svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3.5" width="14" height="11" rx="1.6"/><path d="m2.5 4.5 6.5 5.5 6.5-5.5"/></svg>annalena.klippel@digitalwinners.net</a>
+        </div>
+      </div>
+
+      <div class="okrk-plate">
+        <span class="okrk-kicker">Telefonisch erreichbar</span>
+        <div class="okrk-tel-item"><span class="okrk-flag">🇩🇪</span><a href="tel:+4989215295299">+49 89 21 52 95 2 – 99</a></div>
+        <div class="okrk-tel-item"><span class="okrk-flag">🇦🇹</span><a href="tel:+43720022168">+43 720 02 21 68</a></div>
+        <div class="okrk-tel-item"><span class="okrk-flag">🇨🇭</span><a href="tel:+41715880364">+41 71 58 80 36 4</a></div>
+      </div>
+
+      <div class="okrk-plate">
+        <span class="okrk-kicker">Lieber eine Nachricht hinterlassen?</span>
+        <p>Nutzen Sie einfach unser Kontaktformular – wir melden uns zeitnah bei Ihnen.</p>
+        <a class="okrk-btn" href="https://okrexperten.de/kontaktformular/">Zum Kontaktformular <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="okrk-stars-row">
+        <span class="okrk-stars">★★★★★</span> Google <b>(71)</b>
+        <span class="okrk-sep">–</span>
+        <span class="okrk-stars">★★★★★</span> ProvenExpert <b>(117)</b>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+</div>
