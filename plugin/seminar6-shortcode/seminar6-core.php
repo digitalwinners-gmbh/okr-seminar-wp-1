@@ -152,8 +152,8 @@ function seminar6_collect($type) {
         $days = (int) $today->diff($startDateTime)->format('%r%a');
         $weeks = (int) floor($days / 7);
         $discount = 0;
-        if ($weeks >= 8)  $discount = 10;
-        if ($weeks >= 12) $discount = 15;
+        if ($weeks >= 4)  $discount = 10;
+        if ($weeks >= 10) $discount = 15;
         $special_label = 'EarlyBird';
         if (strstr($key, '3DMUC202606') || strstr($key, '3DREM202606')) {
             $discount = 15;
