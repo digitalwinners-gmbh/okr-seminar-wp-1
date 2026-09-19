@@ -248,9 +248,8 @@
        geöffneten Details-Panel schließt NICHT (nur der Kopf toggelt). */
     document.addEventListener('click', function (e) {
       if (e.target.closest('.okrs-date-offer-btn, .okrs-date-book')) return;
-      var head = e.target.closest('.okrs-date-head');
-      if (!head) return;
-      var row = head.closest('.okrs-date-row');
+      if (e.target.closest('.okrs-date-details')) return;
+      var row = e.target.closest('.okrs-date-row');
       if (!row) return;
       var open = row.classList.toggle('is-open');
       var chev = row.querySelector('.okrs-date-chev');

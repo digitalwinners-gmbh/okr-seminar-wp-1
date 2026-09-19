@@ -442,11 +442,10 @@ body .wrapper_inner { overflow: clip !important; }
 .okrs-date-edge { width: 6px; flex-shrink: 0; background: #2e9b5b; }
 .okrs-date-row--wenige .okrs-date-edge { background: #e0992f; }
 .okrs-date-row--ausgebucht .okrs-date-edge { background: #d2453a; }
-.okrs-date-main { flex: 1; padding: 16px 20px; min-width: 0; }
-.okrs-date-head { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; cursor: pointer; }
-/* Buttons behalten ihren eigenen Cursor (Klick togglet dort nicht) */
-.okrs-date-head .okrs-date-offer-btn, .okrs-date-head .okrs-date-book { cursor: pointer; }
-.okrs-date-head .okrs-date-book--disabled { cursor: not-allowed; }
+.okrs-date-main { flex: 1; padding: 16px 20px; min-width: 0; cursor: pointer; }
+.okrs-date-head { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+/* Ganze Zeile klickbar zum Auf-/Zuklappen; geöffnetes Details-Panel + disabled ausgenommen */
+.okrs-date-book--disabled { cursor: not-allowed; }
 .okrs-date-date { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 17px; min-width: 120px; }
 .okrs-date-city { min-width: 150px; font-weight: 700; font-size: 15px; color: #3a352d; }
 .okrs-date-avail {
@@ -491,7 +490,7 @@ body .wrapper_inner { overflow: clip !important; }
 }
 .okrs-date-book:hover { background: #97772f; }
 .okrs-date-book--disabled { background: #d9d9d9; color: #555 !important; box-shadow: none; cursor: not-allowed; }
-.okrs-date-details { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid #ece5d6; }
+.okrs-date-details { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid #ece5d6; cursor: auto; }
 .okrs-date-row.is-open .okrs-date-details { display: block; }
 .okrs-date-details-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
