@@ -242,14 +242,18 @@
       applyFilter('alle');
     }
 
-    /* ---------- Termin-Details auf-/zuklappen (neue Liste, layout="okrs") ---------- */
+    /* ---------- Termin-Details auf-/zuklappen (neue Liste, layout="okrs") ----------
+       Ein Klick auf den Zeilen-Kopf (.okrs-date-head) klappt die Details auf/zu –
+       außer auf den Buttons "Angebot anfragen" und "Buchen". Der Klick im bereits
+       geöffneten Details-Panel schließt NICHT (nur der Kopf toggelt). */
     document.addEventListener('click', function (e) {
-      var btn = e.target.closest('.okrs-date-toggle');
-      if (!btn) return;
-      var row = btn.closest('.okrs-date-row');
+      if (e.target.closest('.okrs-date-offer-btn, .okrs-date-book')) return;
+      var head = e.target.closest('.okrs-date-head');
+      if (!head) return;
+      var row = head.closest('.okrs-date-row');
       if (!row) return;
       var open = row.classList.toggle('is-open');
-      var chev = btn.querySelector('.okrs-date-chev');
+      var chev = row.querySelector('.okrs-date-chev');
       if (chev) chev.textContent = open ? '▴' : '▾';
     });
 
