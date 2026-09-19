@@ -22,7 +22,7 @@ SECTIONS = ROOT / "src" / "sections"
 ASSET_BASE = "https://okrexperten.de/wp-content/uploads/okr-seminar"
 
 # Bei Änderungen an CSS/JS hochzählen — umgeht Cloudflare-/Browser-Cache
-ASSET_VER = "29"
+ASSET_VER = "30"
 
 
 def raw_html(name: str) -> str:
@@ -70,6 +70,9 @@ parts = [
 
     # 2) Vorteile / Benefits-Slider
     row(raw_html("02-benefits.html"), bg="#fbf9f3", el_id="vorteile"),
+
+    # 2b) Exklusiv inklusive: OKR Companion Pro App
+    row(raw_html("02b-companion.html"), bg="#f7f4ed"),
 
     # 3) Trainer (dunkel)
     row(raw_html("03-trainer.html"), bg="#1c1813", el_id="trainer"),
