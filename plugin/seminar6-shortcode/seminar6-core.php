@@ -40,18 +40,18 @@ function seminar6_ini_path() {
  * Preis-/Rabattlogik entspricht v1 (EarlyBird, Summer Special, Zürich/Wien/Luzern).
  */
 function seminar6_collect($type) {
-    $config = @parse_ini_file(seminar6_ini_path(), false, INI_SCANNER_RAW);
-    if (!$config) return array();
+    // Ergebnis pro Request und $type memoisieren: auf einer Seite laufen
+    // [seminar6] + [seminar6_data] (+ ggf. [seminar6_info]) sonst mehrfach
+    // durch INI-Parsing und Terminschleife.
+    static $cache = array();
+    if (array_key_exists($type, $cache)) return $cache[$type];
 
-    $monate = array(
-        'January' => 'Januar', 'February' => 'Februar', 'March' => 'März',
-        'April' => 'April', 'May' => 'Mai', 'June' => 'Juni', 'July' => 'Juli',
-        'August' => 'August', 'September' => 'September', 'October' => 'Oktober',
-        'November' => 'November', 'December' => 'Dezember',
-    );
+    $config = @parse_ini_file(seminar6_ini_path(), false, INI_SCANNER_RAW);
+    if (!$config) return $cache[$type] = array();
 
     $today = new DateTime();
     $cutoff = (clone $today)->modify('+1 day');
+    $avail_labels = array('verfuegbar' => 'Verfügbar', 'wenige' => 'Wenige Plätze', 'ausgebucht' => 'Ausgebucht');
     $entries = array();
 
     foreach ($config as $key => $value) {
@@ -216,7 +216,6 @@ function seminar6_collect($type) {
         $avail = 'verfuegbar';
         if ($seats > 0)         $avail = 'wenige';
         if ($execution === 'A') $avail = 'ausgebucht';
-        $avail_labels = array('verfuegbar' => 'Verfügbar', 'wenige' => 'Wenige Plätze', 'ausgebucht' => 'Ausgebucht');
 
         $notes = array();
         if ($execution === 'X')  $notes[] = 'Durchführung gesichert';
@@ -264,7 +263,7 @@ function seminar6_collect($type) {
     }
 
     usort($entries, function ($a, $b) { return $a['sort'] <=> $b['sort']; });
-    return $entries;
+    return $cache[$type] = $entries;
 }
 
 /** Terminliste im neuen Design rendern (aus templates/okrs-item.html). */
